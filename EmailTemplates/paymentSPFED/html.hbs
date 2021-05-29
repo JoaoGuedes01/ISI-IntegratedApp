@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<style>
+    .myButton {
+	box-shadow:inset 0px 0px 10px -27px #97c4fe;
+	background-color:#f5751f;
+	border-radius:15px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:18px;
+	font-weight:bold;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #1570cd;
+}
+.myButton:hover {
+	background-color:#1e62d0;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+</style>
+
+<html>
+
+<body style="margin:0;padding:0;">
+    <div style="background:#fff">
+        <div style="max-width:100%;margin:0px auto;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%; background-color:#fff;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style=" max-width:100%;box-sizing:border-box; background:#161616">
+                                <div
+                                    style="width:100%;max-width:575px;min-width:300px;margin:auto;text-align:center;padding:15px">
+                                    <img src="https://i.ibb.co/R9WZCJ5/fepra-Sgundop.png"
+                                        style="height: 150px;">
+                                </div>
+                                <div
+                                    style="text-align: center; width:100%;max-width:575px;min-width:300px;background:#fff;margin:auto;box-sizing:border-box;border-radius:4px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding:50px 30px 10px;">
+                                    <h1
+                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
+
+                                    </h1>
+                                    <p
+                                        style="text-align: center;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0">
+                                        <b>Pagamento efetuado com sucesso</b>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div
+                                style="text-align: center;width:100%;max-width:575px;min-width:300px;margin-left:auto;margin-right:auto; box-sizing:border-box;border-radius:4px;border-top-left-radius:0;border-top-right-radius:0;padding:10px 30px 50px; box-shadow: 5px 5px 5px #dadada;">
+
+                                <p
+                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                    Gostariamos de informar que a criação do troféu foi autorizada e o pagamento recebido com sucesso.<br>
+                                    <b>Item: {{description}} - {{eventName}}</b><br>
+                                    <b>Valor: {{price}} €</b><br>
+                                    Para mais informações consulte a fatura gerada.<br>
+                                </p>
+                                <a href="http://127.0.0.1:3000/admin/getInvoice/{{invoiceID}}" class="myButton">Fatura</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="max-width:100%;margin:0px auto;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div
+                                style="width:100%;max-width:575px;min-width:300px;margin:auto;box-sizing:border-box;padding-top:20px;padding-bottom:20px;padding-left:15px;padding-right:15px;">
+                                <p style="text-align:center; font-family:verdana;">
+                                    <a href="#"
+                                        style="text-align:center;font-size:13px;line-height:1.5;color:#999999; text-decoration: none; color: cornflowerblue;     display: flex; align-items: center; justify-content: center;">
+                                        <img src="https://i.ibb.co/8s2HMLh/spsemfundo.png"
+                                            style="height:25px">&emsp; Equipa SP, www.spmodelismoisi.com © 2021</a>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

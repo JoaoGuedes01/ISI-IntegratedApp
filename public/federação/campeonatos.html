@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/public/federação/assets/img/favicon.jpg"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>FPRMA</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="/public/federação/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/public/federação/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="/public/federação/assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+
+
+<body class="">
+    <div class="wrapper ">
+        <div class="sidebar" data-color="orange">
+            <div class="logo">
+                <img src="/public/federação/assets/img/logo.jpg" />
+                <a href="/public/federação/campeonatos.html" class="simple-text logo-normal"> </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav"> 
+                    <li class="active">
+                        <a href="/public/federação/campeonatos.html">
+                            <i class="fas fa-flag-checkered"></i>
+                            <p>Campeonatos</p>
+                        </a> 
+                    </li>
+                    <li>
+                        <a href="/public/federação/trofeusFP.html">
+                            <i class="fas fa-trophy"></i>
+                            <p>Trofeus</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/public/federação/licencas.html">
+                            <i class="far fa-id-badge"></i>
+                            <p><P>Licenças</P></p>
+                        </a>
+                    </li>
+  
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#pablo">Campeonatos</a>
+                    </div>                   
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-sm">
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Campeonatos</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="tblCampeonatos"></table>
+
+                                    <button type="button" class="btn btn-neutral" data-toggle="modal" data-target="#AddCampeonatos" >
+                                        <i class="fa fa-plus" style="align-self: center; padding-right: 1%;"></i> Criar campeonato </button>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal-->
+            <div class="modal fade" id="AddCampeonatos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered" role="document">
+                    <div class="modal-content" style="margin-top: 5% !important;"> 
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Criar Campeonato</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            
+                        </div>    
+                    <div class="modal-body">             
+                    <form id="formAddCampeonato">
+                         <div class="form-group row">		 
+                        
+                        <!--Tenho de colocar o id-->
+                        <div class="col-md-12" >
+                            <div class="row">
+                                <div class="col-md-12"><div class="form-group"> <label  class=" form-control-label"></label>Nome<input id="name" type="" class="form-control" placeholder= "Insira o nome do campeonato"required> </div></div>
+                            </div>  
+                            <br>
+                             <div class="row">
+                                 <div class="col-md-6"><div class="form-group"> <label  class=" form-control-label"></label>Data início<input id="data_inicio" type="date" class="form-control" required> </div></div>
+                                 <div class="col-md-6"><div class="form-group">  <label  class=" form-control-label"></label>Data Fim<input id="data_fim" type="date" class="form-control" required></div> </div>
+                             </div>  
+                             <br>
+                            <div class="row"> 
+                                <div class="col-md-6" ><label for="select" class=" form-control-label" >Pista </label>
+                                    <select name="selectPistas" id="Pistas" class="form-control" required>
+                                        <option value="0" name="selectPistas" id="0">Selecione uma pista</option>
+                                    </select>
+                                 </div> 
+                                 <div class="row">  
+                                    <div class="col-md-6"><div class="form-group"> <label class=" form-control-label"></label>Minimo de inscrições<input  id="min_inscr" type="number" class="form-control" required> </div></div>
+                                 </div>
+                                 <div class="col-md-6"><label  class=" form-control-label">Preço de inscrição </label>
+                                <input type="text" id="preco_inscricao" placeholder="Insira o preço" class="form-control" required> </div>
+                             </div>
+                             <br>
+                             <div>
+                                 <br>
+                                 <div class="row">
+                                <div class="col-md-12"><div class="form-group"> <label  class=" form-control-label"></label>Descrição<input id="descricao" type="text" class="form-control" placeholder= "Descrição"required> </div></div>
+                             </div>
+                            </div>
+                             <br>      
+                      </div>
+                      </div> 
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-check"></i> Submeter
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Cancelar
+                                </button>
+                            </div>
+                    </form>
+               
+            </div>
+            </div>
+            </div>
+            <footer class="footer">
+               
+            </footer>
+        </div>
+    </div>
+</body>
+<!--   Core JS Files   -->
+<script src="/public/federação/assets/js/core/jquery.min.js"></script>
+<script src="/public/federação/assets/js/core/popper.min.js"></script>
+<script src="/public/federação/assets/js/core/bootstrap.min.js"></script>
+<script src="/public/federação/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
+<script src="/public/federação/assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="/public/federação/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/public/federação/assets/js/now-ui-dashboard.js?v=1.0.1"></script>
+<!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+<script src="/public/federação/assets/demo/demo.js"></script>
+
+<script src="/public/federação/assets/js/campeonatosFP.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</html>

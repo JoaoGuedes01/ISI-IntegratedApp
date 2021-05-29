@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="assets/img/favicon.jpg"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>FPRMA</title>
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+        <!--     Fonts and icons     -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <!-- CSS Files -->
+        <link href="/public/federação/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/public/federação/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link href="/public/federação/assets/demo/demo.css" rel="stylesheet" />
+    </head>
+    
+    <body class="">
+        <div class="wrapper ">
+            <div class="sidebar" data-color="orange">
+                <!--
+            Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+        -->
+                <div class="logo">
+                    <img src="/public/federação/assets/img/logo.jpg" />
+                    <a href="/public/federação/campeonatos.html" class="simple-text logo-normal"> </a>
+                </div>
+                <div class="sidebar-wrapper">
+                    <ul class="nav"> 
+                        <li>
+                            <a href="/public/federação/campeonatos.html">
+                                <i class="fas fa-flag-checkered"></i>
+                                <p>Campeonatos</p>
+                            </a> 
+                        </li>
+                        <li class="active">
+                            <a href="/public/federação/trofeusFP.html">
+                                <i class="fas fa-trophy"></i>
+                                <p>Trofeus</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/public/federação/licencas.html">
+                                <i class="far fa-id-badge"></i>
+                                <p><P>Licenças</P></p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="main-panel">
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-wrapper">
+                            <div class="navbar-wrapper">
+                                <div class="navbar-toggle">
+                                    <button type="button" class="navbar-toggler">
+                                        <span class="navbar-toggler-bar bar1"></span>
+                                        <span class="navbar-toggler-bar bar2"></span>
+                                        <span class="navbar-toggler-bar bar3"></span>
+                                    </button>
+                                </div>
+                                <a class="navbar-brand" href="#pablo"></a>
+                            </div>  
+                        </div>
+                    </div>
+                </nav>
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-sm">
+
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Troféus Pendentes </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="tblTrofeus" class="table" >  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <footer class="footer">
+               
+            </footer>
+        </div>
+    </div>
+</body>
+<!--   Core JS Files   -->
+<script src="/public/federação/assets/js/trofeusFP.js"></script>
+<script src="/public/federação/assets/js/core/jquery.min.js"></script>
+<script src="/public/federação/assets/js/core/popper.min.js"></script>
+<script src="/public/federação/assets/js/core/bootstrap.min.js"></script>
+<script src="/public/federação/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
+<script src="/public/federação/assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="/public/federação/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/public/federação/assets/js/now-ui-dashboard.js?v=1.0.1"></script>
+<!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+<script src="/public/federação/assets/demo/demo.js"></script>
+<script>
+    $(document).ready(function() {
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+</html>
