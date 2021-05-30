@@ -1,4 +1,4 @@
-let domain = "https://ISI-IntegratedApp.joaoguedes01.repl.co/api";
+let domain = "https://ISI-IntegratedApp.joaoguedes01.repl.co/api"
 
 async function login() {
   let data = {

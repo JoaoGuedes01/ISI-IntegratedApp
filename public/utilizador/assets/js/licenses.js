@@ -1,4 +1,4 @@
-let domain = "http://127.0.0.1:3000/api"
+let domain = "https://ISI-IntegratedApp.joaoguedes01.repl.co/api"
 let id_user_logged
 let licence_logged=null
 

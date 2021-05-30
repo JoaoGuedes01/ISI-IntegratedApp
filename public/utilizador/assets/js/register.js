@@ -1,5 +1,5 @@
 
-let domain = "http://127.0.0.1:3000/api"
+let domain = "https://ISI-IntegratedApp.joaoguedes01.repl.co/api"
 async function register() {
   let data = {
     First_Name__c: document.getElementById("First_Name").value,
