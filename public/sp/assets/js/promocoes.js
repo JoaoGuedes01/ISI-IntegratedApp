@@ -1,4 +1,4 @@
-let domain = "http://127.0.0.1:3000/api"
+let domain = "https://ISI-IntegratedApp.joaoguedes01.repl.co/api"
 window.onload=() => {
   
     renderPromocoes();
@@ -155,7 +155,7 @@ for (let i = 0; i < btnImage.length; i++) {
 Swal.mixin({
   
   }).queue([
-    {imageUrl: `http://127.0.0.1:3000/img/events/${id_promocao}.png`,
+    {imageUrl: `https://ISI-IntegratedApp.joaoguedes01.repl.co/img/events/${id_promocao}.png`,
     imageAlt: 'Promoção',
     showCancelButton: true,
     confirmButtonColor: '#28a745',
