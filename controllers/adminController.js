@@ -166,7 +166,9 @@ async function getEvents(req, res) {
                 CloseDate__c: 1,
                 Track__c: 1,
                 MinReg__c: 1,
-                Foto__c: 1
+                Foto__c: 1,
+                Published__c: 1,
+                PublishedTwitter__c: 1
             });
 
         //Verificação da existencia de eventos
@@ -201,7 +203,9 @@ async function getEventByID(req, res) {
                 StartDate__c: 1,
                 CloseDate__c: 1,
                 Track__c: 1,
-                MinReg__c: 1
+                MinReg__c: 1,
+                Published__c: 1,
+                PublishedTwitter__c: 1
             });
 
         //Verificação da existencia do evento
@@ -232,11 +236,44 @@ async function deleteEventByID(req, res) {
 
         if (result.status == "error") return res.send({ message: "There was an error deleting the event" });
 
+        
+
         return res.send({ message: "Event deleted successfully" });
 
     } catch (error) {
         res.send(error);
     }
+}
+
+async function rejectChampionship(req, res) {
+    console.log("Trying to reject");
+    const eventID = req.params.eventID;
+
+    const event = await conn.sobject("FED_Requests__c").findOne(
+        {
+            Id: eventID
+        },
+        {
+            HubspotID__c: 1
+        })
+
+    const updatedEvent = await conn.sobject("FED_Requests__c").update(
+        {
+            Id: eventID,
+            Request_Status__c: 'rejected'
+        })
+
+    console.log(event.HubspotID__c);
+    const dealObj = {
+        properties: {
+            hs_pipeline_stage: "3",
+        },
+    }
+    const updatedDeal = await hubspotClient.crm.tickets.basicApi.update(event.HubspotID__c, dealObj);
+    if (!updatedDeal) return res.send("There was an error updating the Deal");
+
+    return res.send('ok')
+
 }
 
 //Função de criar Evento
@@ -257,7 +294,9 @@ async function createEvent(req, res) {
             Track__c: req.body.Track__c,
             CapacityTeams__c: req.body.CapacityTeams__c,
             MinReg__c: req.body.MinReg__c,
-            Foto__c: 'undefined'
+            Foto__c: 'undefined',
+            Published__c: 'no',
+            PublishedTwitter__c: 'no'
         }
         const ev = await conn.sobject("EventsSP__c").create(data, (err, result) => {
             //Catch de erros na criação do objeto
@@ -357,7 +396,9 @@ async function createEvent(req, res) {
             Track__c: req.body.Track__c,
             CapacityTeams__c: req.body.CapacityTeams__c,
             MinReg__c: req.body.MinReg__c,
-            Foto__c: 'undefined'
+            Foto__c: 'undefined',
+            Published__c: 'no',
+            PublishedTwitter__c: 'no'
         }
         const ev = await conn.sobject("EventsSP__c").create(data, (err, result) => {
             //Catch de erros na criação do objeto
@@ -639,7 +680,8 @@ async function getFedRequests(req, res) {
             EventDesc__c: 1,
             TrackID__c: 1,
             Request_Status__c: 1,
-            HubspotID__c: 1
+            HubspotID__c: 1,
+            MinReg__c: 1
         });
 
     //Verificação da existencia do utilizador
@@ -1907,9 +1949,12 @@ async function publishEventFB(req, res) {
             CloseDate__c: 1,
             Track__c: 1,
             MinReg__c: 1,
-            Foto__c: 1
+            Foto__c: 1,
+            Published__c: 1
         }
     )
+
+    if (event.Published__c == 'yes') return res.send({ status: 400, message: 'Already Published' })
 
     var wallPost = {
         message: `A SPModelismo orgulha-se de hospedar mais um ` + event.EventType__c + `!\n
@@ -1920,7 +1965,12 @@ Boa sorte, e vemo-nos na pista!`,
         url: 'https://www.animeunited.com.br/oomtumtu/2020/04/Himouto-Umaru-chan-Doga-Kobo.jpg'
     };
 
-    graph.post("105219125085837/photos", wallPost, function (err, resp) {
+    graph.post("105219125085837/photos", wallPost, async function (err, resp) {
+        const updatedEvent = await conn.sobject('EventsSP__c').update(
+            {
+                Id: event.Id,
+                Published__c: 'yes'
+            })
         return res.send({ status: 200, message: 'Posted successfully on facebook' })
     });
 
@@ -1941,9 +1991,13 @@ async function publishEventTwitter(req, res) {
             CloseDate__c: 1,
             Track__c: 1,
             MinReg__c: 1,
-            Foto__c: 1
+            Foto__c: 1,
+            Published__c: 1,
+            PublishedTwitter__c: 1
         }
     )
+
+    if (event.PublishedTwitter__c == 'yes') return res.send({ status: 400, message: 'Already Published' })
 
     msg = {
         status: `Contamos contigo para participares e mostrares o que vales no ` + event.EventName__c + `!\n
@@ -1951,10 +2005,17 @@ O evento terá inicio dia `+ event.StartDate__c + ` e acabará dia ` + event.Clo
 Para mais informações visita a página oficial do evento.\n
 Boa sorte, e vemo-nos na pista!`
     }
-    client.post('statuses/update', msg, function (error, tweet, response) {
+    client.post('statuses/update', msg, async function (error, tweet, response) {
         if (error) throw error;
+        const updatedEvent = await conn.sobject('EventsSP__c').update(
+            {
+                Id: event.Id,
+                PublishedTwitter__c: 'yes'
+            })
         return res.send({ status: 200, message: 'Posted successfully on Twitter' })
     });
+
+
 
 }
 
@@ -2082,5 +2143,6 @@ module.exports = {
     getMangasByEvent: getMangasByEvent,
     publishEventFB: publishEventFB,
     cancelEvent: cancelEvent,
-    publishEventTwitter: publishEventTwitter
+    publishEventTwitter: publishEventTwitter,
+    rejectChampionship: rejectChampionship
 }

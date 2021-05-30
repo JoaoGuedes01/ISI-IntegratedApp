@@ -18,6 +18,8 @@ app.use(function (req, res, next) {
 
 app.use('/assets', express.static('./HTML/landing-page/assets'));
 app.use('/img', express.static('./img'));
+app.use('/public', express.static('./public'));
+app.use('/', express.static('./'));
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -25,22 +27,16 @@ app.use(cookieParser());
 connectDB();
 
 
-/*app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname, "./HTML/landing-page/index.html"))
-})*/
 
-//Front-End
-app.use('/public', express.static('./public'));
-app.use('/', express.static('./'));
-
+//FrontEnd
 //Front-Office
 app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname, "/public/index.html"))
+    res.sendFile(path.join(__dirname, "./public/index.html"))
 })
 
 //SPModelismo
 app.get('/sp',(req,res)=>{
-    res.sendFile(path.join(__dirname, "/public/sp/index.html"))
+    res.sendFile(path.join(__dirname, "/public/sp/proximostrofeus.html"))
 })
 
 app.get('/tracks',(req,res)=>{
@@ -83,9 +79,7 @@ app.get('/webcelos',(req,res)=>{
     res.sendFile(path.join(__dirname, "/public/webcelos/promocoesWC.html"))
 })
 
-app.get('/promocoesWC',(req,res)=>{
-    res.sendFile(path.join(__dirname, "/public/webcelos/promocoesWC.htlm"))
-})
+
 
 app.get('/reportagensWC',(req,res)=>{
     res.sendFile(path.join(__dirname, "/public/webcelos/reportagensWC.htlm"))
@@ -98,7 +92,11 @@ app.get('/federacao',(req,res)=>{
 })
 
 
-//Rotas Back-End
+
+
+
+
+//Rotas Backend
 
 //Rotas de User
 const userRoutes = require('./routes/userRoutes');

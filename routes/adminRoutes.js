@@ -24,7 +24,7 @@ router.get('/closeCampeonatoRegs/:eventID', adminController.closeTrofeuRegs);
 router.get('/publishEventFB/:eventID', adminController.publishEventFB);
 router.get('/publishEventTwitter/:eventID', adminController.publishEventTwitter);
 router.get('/cancelEvent/:eventID', adminController.cancelEvent);
-router.get('/cancelEvent/:eventID', adminController.cancelEvent);
+router.get('/rejectChampionship/:eventID', adminController.rejectChampionship);
 
 
 //POSTS

@@ -1,4 +1,4 @@
-const domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
 
 
@@ -27,15 +27,10 @@ const renderLicences = async () => {
     const response = await fetch(`${domain}/federation/licenses`) 
     const licences = await response.json()
     let i = 0
-    let nascimento
-    let codigoP
-    let morada
-    let cidade
-    let nif
-    let telemovel
- console.log(licences)
+
 
  for (const licence of licences) { 
+
         strHtml += `
         <tr>
             <td class='w-10 text-center'>SP Modelismo</td>
@@ -43,7 +38,7 @@ const renderLicences = async () => {
             <td class='w-10 text-center'>${licence.licenseType} </td>
             <td class='w-10 text-center'>${licence.licenseNumber} </td>    
             <td class='w-10 text-center'>
-            <i value='${licence.Id}' class="fas fa-plus more" title="Ver mais"> </i>
+            <i value='${licence._id}' class="fas fa-plus more" title="Ver mais"> </i>
               </td>
         </tr>
     `
@@ -52,13 +47,6 @@ const renderLicences = async () => {
     tblLicences.innerHTML = strHtml
 
 
-    nascimento = licence.dateOfBirth
-    codigoP = licence.postal_code
-    morada = licence.Address
-    cidade = licence.city
-    telemovel = licence.phone_number
-    nif = licence.NIF
-
         i++
     }
 
@@ -66,12 +54,13 @@ const renderLicences = async () => {
             //botão ver mais 
             const btnMore = document.getElementsByClassName("more")
             for (let i = 0; i < btnMore.length; i++) {
-             btnMore[i].addEventListener("click", () => {
+             btnMore[i].addEventListener("click", async(event)=> {
      
                  //get id licença selecionado
                 let id_licence = btnMore[i].getAttribute("value");
                 console.log("O evento selecionado é: " + id_licence)
-    
+                const response7 = await fetch(`${domain}/federation/licenses/${id_licence}`) 
+                const dados = await response7.json();
                 swal.fire({
                   title: 'Outros dados',
                   html:
@@ -84,12 +73,12 @@ const renderLicences = async () => {
     
             
                   <div class="card-body">
-                    <p>Data de nascimento: ${nascimento.substring(0,10)}</p>
-                    <p>NIF: ${nif}</p>
-                    <p>Código-Postal: ${codigoP}</p>
-                    <p>Morada: ${morada}</p>
-                    <p>Cidade: ${cidade}</p>
-                    <pTelemóvel: ${telemovel}</p>
+                    <p>Data de nascimento: ${dados[0].dateOfBirth.substring(0,10)}</p>
+                    <p>NIF: ${dados[0].NIF}</p>
+                    <p>Código-Postal: ${dados[0].postal_code}</p>
+                    <p>Morada: ${dados[0].Address}</p>
+                    <p>Cidade: ${dados[0].city}</p>
+                    <pTelemóvel: ${dados[0].phone_number}</p>
                   </div>
                   </div>   
                     

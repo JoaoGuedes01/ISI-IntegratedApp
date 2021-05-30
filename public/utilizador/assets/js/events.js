@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 let id_user_logged
 
 let id_evento
@@ -7,147 +7,137 @@ let id_evento
 let pista
 
 
-window.onload=() => {
+window.onload = () => {
 
-    let cards_eventos = document.getElementById("cards_eventos");  
+  let cards_eventos = document.getElementById("cards_eventos");
 
 
-    renderEventos();
-    LoggedUser();
+  renderEventos();
+  LoggedUser();
 
 
 }
 
 //renderEventos
 const renderEventos = async () => { //falta confirmar a licença
-      
-  const response = await fetch(`${domain}/user/events`) 
+
+  const response = await fetch(`${domain}/user/events`)
   const eventos = await response.json()
   let i = 1
-  let nome_evento
-  for (const evento of eventos) {
-      //console.log(eventos)
-      nome_evento = evento.EventName__c;
-      //console.log(nome_evento)
-   
- //verificar data
- var today = new Date();
+  console.log(eventos.userRegs.length);
+  console.log(eventos.notRegs.length);
 
- var dd = String(today.getDate()).padStart(2, '0');
- var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
- var yyyy = today.getFullYear();
 
- today = yyyy + '-' + mm + '-' + dd;
-
-//ver eventos futuros e aceites e trofeus ou campeonatos
- if(evento.StartDate__c > today && evento.EventStatus__c == "insc_abertas" && (evento.EventType__c=="trofeu" || evento.EventType__c=="campeonatoN")){ 
-  
-
-        //verificar se já está inscrito
-        const response = await fetch(`${domain}/user/registrationByEventID/${evento.Id}`) 
-        const inscritos = await response.json()
-
-        pista=evento.Track__c
-
-       // console.log(inscritos)
-        if(inscritos == ""){
-
-          
-       //   console.log("else não está inscrito")
-
-          document.getElementById("cards_eventos").innerHTML += `
-  
-          <div class="col-md-4">
-          <div class="card">
+  if (eventos.userRegs.length > 0) {
+    for (i = 0; i < eventos.userRegs.length; i++) {
+      const userRegEvent = await fetch(`${domain}/user/eventById/` + eventos.userRegs[i]);
+      const userEv = await userRegEvent.json();
+      console.log(userEv);
+      if (userEv[0].EventStatus__c == 'cancelado') {
+        document.getElementById("cards_eventos").innerHTML +=
+          `
+      <div class="col-md-4">
+        <div class="card">
           <div class="card-header">
-          <strong>${evento.EventName__c}</strong>
+            <strong>${userEv[0].EventName__c}</strong>
           </div>
-    
+
           <div class="card-body">
-            <p>Desde: ${evento.StartDate__c}</p>
-            <p>Até: ${evento.CloseDate__c}</p>
-            <p>Tipo: ${evento.EventType__c}</p>
-            <p>Preço: ${evento.InscPrice__c}€</p>
-            <p>Pista: <a  class="map" id="pistaaa" value='${evento.Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
-            <p> <button value='${evento.Id}' class="btn btn-success inscrever" name="increver"> Participar </button></p>
+            <p>Desde: ${userEv[0].StartDate__c}</p>
+            <p>Até: ${userEv[0].CloseDate__c}</p>
+            <p>Tipo: ${userEv[0].EventType__c}</p>
+            <p>Preço: ${userEv[0].InscPrice__c}€</p>
+            <p>Pista: <a class="map" id="pistaaa" value='${userEv[0].Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
+            <p> <span class="badge badge-info" name=""> Cancelado </span></a>
+    </p>
 
-
+        </div>
+      </div>
+    `
+      } else {
+        document.getElementById("cards_eventos").innerHTML +=
+          `
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <strong>${userEv[0].EventName__c}</strong>
           </div>
-          </div>   
-            `
-        }
-        else{
-        for (const inscrito of inscritos){
 
-       //console.log("entrou")
-       //console.log("id do inscrito" + inscrito.PilotID__c)
-
-       if(inscrito.PilotID__c == id_user_logged){  //Se estiver inscrito o botão diz inscrito e já não se pode inscrever novamente
-        console.log("Já está inscrito")
-
-        document.getElementById("cards_eventos").innerHTML += `
-
-        <div class="col-md-4">
-        <div class="card">
-        <div class="card-header">
-        <strong>${evento.EventName__c}</strong>
-        </div>
-  
-        <div class="card-body">
-          <p>Desde: ${evento.StartDate__c}</p>
-          <p>Até: ${evento.CloseDate__c}</p>
-          <p>Tipo: ${evento.EventType__c}</p>
-          <p>Preço: ${evento.InscPrice__c}€</p>
-          <p>Pista: <a  class="map" id="pistaaa" value='${evento.Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
-          <p> <span class="badge badge-info" name=""> Inscrito </span></a>
-          </p>
+          <div class="card-body">
+            <p>Desde: ${userEv[0].StartDate__c}</p>
+            <p>Até: ${userEv[0].CloseDate__c}</p>
+            <p>Tipo: ${userEv[0].EventType__c}</p>
+            <p>Preço: ${userEv[0].InscPrice__c}€</p>
+            <p>Pista: <a class="map" id="pistaaa" value='${userEv[0].Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
+            <p> <span class="badge badge-info" name=""> Inscrito </span></a>
+    </p>
 
         </div>
-        </div>   
-          `
+      </div>
+    `
       }
-
-      else{
-       // console.log("else não está inscrito")
-        document.getElementById("cards_eventos").innerHTML += `
-
-        <div class="col-md-4">
-        <div class="card">
-        <div class="card-header">
-        <strong>${evento.EventName__c}</strong>
-        </div>
-  
-        <div class="card-body">
-          <p>Desde: ${evento.StartDate__c}</p>
-          <p>Até: ${evento.CloseDate__c}</p>
-          <p>Tipo: ${evento.EventType__c}</p>
-          <p>Preço: ${evento.InscPrice__c}€</p>
-          <p>Pista: <a class="map"  id="pistaaa" value='${evento.Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(${evento.Track__c})">Ver localização</a></p>
-          <p> <button value='${evento.Id}' class="btn btn-success inscrever" name="increver"> Participar </button></p>
-          
-         
-          </p>
-        </div>
-        </div>   
-          `
-
-
-      }
-
-          i++
-        }
-      
-      }
-
- }
-
-      
-
-  i++
-
+    }
   }
 
-//ver mapa
+  if (eventos.notRegs.length > 0) {
+    console.log('entrou')
+    for (i = 0; i < eventos.notRegs.length; i++) {
+      console.log('aquy')
+      const userNotRegEvent = await fetch(`${domain}/user/eventById/` + eventos.notRegs[i]);
+      const userEv = await userNotRegEvent.json();
+      console.log(userEv);
+      if (userEv[0].EventStatus__c == 'espera_conf') {
+        document.getElementById("cards_eventos").innerHTML +=
+          `
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <strong>${userEv[0].EventName__c}</strong>
+            </div>
+  
+            <div class="card-body">
+              <p>Desde: ${userEv[0].StartDate__c}</p>
+              <p>Até: ${userEv[0].CloseDate__c}</p>
+              <p>Tipo: ${userEv[0].EventType__c}</p>
+              <p>Preço: ${userEv[0].InscPrice__c}€</p>
+              <p>Pista: <a class="map" id="pistaaa" value='${userEv[0].Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
+              <p> <span class="badge badge-warning" name=""> Brevemente </span></a>
+  
+   
+    </p>
+          </div>
+        </div>
+      `
+      } else {
+        document.getElementById("cards_eventos").innerHTML +=
+          `
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <strong>${userEv[0].EventName__c}</strong>
+            </div>
+  
+            <div class="card-body">
+              <p>Desde: ${userEv[0].StartDate__c}</p>
+              <p>Até: ${userEv[0].CloseDate__c}</p>
+              <p>Tipo: ${userEv[0].EventType__c}</p>
+              <p>Preço: ${userEv[0].InscPrice__c}€</p>
+              <p>Pista: <a class="map" id="pistaaa" value='${userEv[0].Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
+              <p> <button value='${userEv[0].Id}' class="btn btn-success inscrever" name="increver"> Participar </button></p>
+  
+   
+    </p>
+          </div>
+        </div>
+      `
+      }
+    }
+  }
+
+
+
+
+  //ver mapa
 
   const btnMapa = document.getElementsByClassName("map")
 
@@ -157,55 +147,56 @@ const renderEventos = async () => { //falta confirmar a licença
     btnMapa[i].addEventListener("click", async (event) => {
 
 
-      Swal.fire({
-        title: "Mapa",
-         html:`  <div id="mapa"> </div>`
-      })
-
       id_pista = btnMapa[i].getAttribute("value");
-    
-      const response2 = await fetch(`${domain}/admin/trackById/${id_pista}`) 
+
+      const response2 = await fetch(`${domain}/admin/trackById/${id_pista}`)
       const pistas = await response2.json()
-    
+
       let latitude = pistas.track.MapsLat__c
       let longitude = pistas.track.MapsLong__c
-    
-    
-    
-      var coordenadas = {lat: latitude, lng: longitude};
-    
-    
+      let name = pistas.track.TrackName__c
+
+      console.log(name + " " + latitude)
+
+      Swal.fire({
+        title: name,
+        html: `  <div id="mapa"> </div>`
+      })
+
+      var coordenadas = { lat: latitude, lng: longitude };
+
+
       var mapa = new google.maps.Map(document.getElementById('mapa'), {
         zoom: 15,
-        center: coordenadas 
+        center: coordenadas
       });
-    
+
       var marker = new google.maps.Marker({
         position: coordenadas,
         map: mapa,
         title: 'Meu marcador'
       });
 
-  })
+    })
   }
 
 
 
   //botão participar
-const btnParticipar = document.getElementsByClassName("inscrever")
-for (let i = 0; i < btnParticipar.length; i++) {
-  btnParticipar[i].addEventListener("click", async (event) => {
+  const btnParticipar = document.getElementsByClassName("inscrever")
+  for (let i = 0; i < btnParticipar.length; i++) {
+    btnParticipar[i].addEventListener("click", async (event) => {
 
-          //get id trofeu selecionado
-          id_evento = btnParticipar[i].getAttribute("value");
-          console.log("O evento selecionado é: " + id_evento)
-          console.log("O piloto logado é: " + id_user_logged)
+      //get id trofeu selecionado
+      id_evento = btnParticipar[i].getAttribute("value");
+      console.log("O evento selecionado é: " + id_evento)
+      console.log("O piloto logado é: " + id_user_logged)
 
- await Swal.fire({
-            
-              title: 'Inscrição no evento',
-              html:
-              `<br>
+      await Swal.fire({
+
+        title: 'Inscrição no evento',
+        html:
+          `<br>
 
               <form id="formRegistoEvento">
               <div class="form-group row">		 
@@ -289,88 +280,89 @@ for (let i = 0; i < btnParticipar.length; i++) {
            </div>
            
              </form>`,
-        
-        
-        
-             
-        
-        
-        
-              focusConfirm: false,
-              preConfirm: async (event) => {
-                //return [
-                  
-                  //event.preventDefault()
-                  
-                  let data = {
-                    PilotCar__c : document.getElementById('carro').value,
-                    CarMotor__c : document.getElementById('motor').value,
-                    CarTransponder__c : document.getElementById('transponder').value,
-                    Radio__c : document.getElementById('radio').value,
-                    MechanicName__c : document.getElementById('nome_mec').value,
-                    MechanicEmail__c : document.getElementById('email_mec').value,
-                    MechanicPhone__c : document.getElementById('tel_mec').value,
-                    Table__c : document.getElementById('mesa').value,
-                    EventID__c : id_evento
-                  };
-                
-                  console.log(data)
 
-                                  // Registar no evento
-                                  let response
-                                  response = await fetch(`${domain}/user/registerInEvent`, {
-                                    headers: {
-                                      'Content-Type': 'application/json',
-                                      'Accept': 'application/json'
-                                    },
-                                    mode: 'cors',
-                                    method: 'POST',
-                                    body: JSON.stringify(data),
-                                    credentials: 'include'
-                                  }).then(res => res.json())
-                                  .then(data => {
-                                    
-                                    console.log(data);
-                                    if(data.status==500){
-                                      Swal.fire({
-                                        title: "Erro",
-                                        text: "Precisa de uma licença nacional"
-                                      })
-                                    }
-                                   else {
-                                     console.log(data)
-                                     window.open(data.forwardLink)}
-                                   //window.location.href="/public/utilizador/events.html"
-                                   
-                                  });
+
+
+
+
+
+
+        focusConfirm: false,
+        preConfirm: async (event) => {
+          //return [
+
+          //event.preventDefault()
+
+          let data = {
+            PilotCar__c: document.getElementById('carro').value,
+            CarMotor__c: document.getElementById('motor').value,
+            CarTransponder__c: document.getElementById('transponder').value,
+            Radio__c: document.getElementById('radio').value,
+            MechanicName__c: document.getElementById('nome_mec').value,
+            MechanicEmail__c: document.getElementById('email_mec').value,
+            MechanicPhone__c: document.getElementById('tel_mec').value,
+            Table__c: document.getElementById('mesa').value,
+            EventID__c: id_evento
+          };
+
+          console.log(data)
+
+          // Registar no evento
+          let response
+          response = await fetch(`${domain}/user/registerInEvent`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            mode: 'cors',
+            method: 'POST',
+            body: JSON.stringify(data),
+            credentials: 'include'
+          }).then(res => res.json())
+            .then(data => {
+
+              console.log(data);
+              if (data.status == 500) {
+                Swal.fire({
+                  title: "Erro",
+                  text: "Precisa de uma licença nacional"
+                })
               }
-    
+              else {
+                console.log(data)
+                window.open(data.forwardLink)
+              }
+              //window.location.href="/public/utilizador/events.html"
+
+            });
+        }
+
+
+      })
+
 
     })
-    
+  }
 
-  })
 }
-
-} 
 
 
 //get user logado
-const LoggedUser = async () =>{
+const LoggedUser = async () => {
 
   //console.log("ola")
 
   const resposne = await fetch(`${domain}/user/loggedUser`, {
-      headers: {
-          'Content-Type' : 'application/json',
-          'Accept' : 'application/json'
-      },
-      method: 'GET',
-      credentials: 'include'
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    method: 'GET',
+    credentials: 'include'
   }).then(res => res.json())
-          .then(data => {
-              id_user_logged =data.Id;
-          });
+    .then(data => {
+      id_user_logged = data.Id;
+    });
 }
 
 
@@ -385,68 +377,35 @@ async function getMesas() {
   const response = await fetch(`${domain}/user/eventById/${id_evento}`)
   const evento = await response.json()
 
- 
+
 
   const response5 = await fetch(`${domain}/admin/trackById/${evento[0].Track__c}`)
   const tracks = await response5.json()
 
   //console.log(tracks.tables.tables)
 
-  let strHtml 
+  let strHtml
 
-  for(let m=0; m < tracks.tables.tables.length;m++){
+  for (let m = 0; m < tracks.tables.tables.length; m++) {
     console.log(tracks.tables.tables[m].tableNumber)
-    strHtml +=`
+    strHtml += `
    <option value='${tracks.tables.tables[m].tableNumber}'> ${tracks.tables.tables[m].tableNumber}</option>
    `
   }
-  Mesas.innerHTML = strHtml    
+  Mesas.innerHTML = strHtml
 }
 
 
-function changeStyle(X){
-  X.style.color="#28a745"
+function changeStyle(X) {
+  X.style.color = "#28a745"
 
-  
+
 }
 
-function changeStylee(X){
-  X.style.color="#878787"
+function changeStylee(X) {
+  X.style.color = "#878787"
 }
 
 
-async function abrirMap(X){
 
-  let id_pista=X;
-  console.log(id_pista)
-
-  Swal.fire({
-    title: "Mapa",
-     html:`  <div id="mapa"> </div>`
-  })
-
-
-
-  const response2 = await fetch(`${domain}/admin/trackById/${id_pista}`) 
-  const pistas = await response2.json()
-
-  let latitude = pistas.track.MapsLat__c
-  let longitude = pistas.track.MapsLong__c
-
-
-
-  var coordenadas = {lat: latitude, lng: longitude};
-
-
-  var mapa = new google.maps.Map(document.getElementById('mapa'), {
-    zoom: 15,
-    center: coordenadas 
-  });
-
-  var marker = new google.maps.Marker({
-    position: coordenadas,
-    map: mapa,
-    title: 'Meu marcador'
-  });
-}
 

@@ -77,11 +77,13 @@
                                 <h4 class="card-title">Campeonatos</h4>
                             </div>
                             <div class="card-body">
+                                <button type="button" class="btn btn-neutral" data-toggle="modal" data-target="#AddCampeonatos" >
+                                    <i class="fa fa-plus" style="align-self: center; padding-right: 1%;"></i> Criar campeonato </button>
+                                    
                                 <div class="table-responsive">
                                     <table class="table" id="tblCampeonatos"></table>
 
-                                    <button type="button" class="btn btn-neutral" data-toggle="modal" data-target="#AddCampeonatos" >
-                                        <i class="fa fa-plus" style="align-self: center; padding-right: 1%;"></i> Criar campeonato </button>
+
                                 </div> 
                             </div>
                         </div>
@@ -107,7 +109,8 @@
                         <!--Tenho de colocar o id-->
                         <div class="col-md-12" >
                             <div class="row">
-                                <div class="col-md-12"><div class="form-group"> <label  class=" form-control-label"></label>Nome<input id="name" type="" class="form-control" placeholder= "Insira o nome do campeonato"required> </div></div>
+                                <div class="col-md-6"><div class="form-group"> <label  class=" form-control-label"></label>Nome<input id="name" type="" class="form-control" placeholder= "Insira o nome do campeonato"required> </div></div>
+                                <div class="col-md-6"><div class="form-group"> <label class=" form-control-label"></label>Minimo de inscrições<input  id="min_inscr" type="number" class="form-control" required> </div></div>
                             </div>  
                             <br>
                              <div class="row">
@@ -115,27 +118,18 @@
                                  <div class="col-md-6"><div class="form-group">  <label  class=" form-control-label"></label>Data Fim<input id="data_fim" type="date" class="form-control" required></div> </div>
                              </div>  
                              <br>
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="col-md-6" ><label for="select" class=" form-control-label" >Pista </label>
                                     <select name="selectPistas" id="Pistas" class="form-control" required>
                                         <option value="0" name="selectPistas" id="0">Selecione uma pista</option>
                                     </select>
-                                 </div> 
-                                 <div class="row">  
-                                    <div class="col-md-6"><div class="form-group"> <label class=" form-control-label"></label>Minimo de inscrições<input  id="min_inscr" type="number" class="form-control" required> </div></div>
-                                 </div>
+                                    </div>   
                                  <div class="col-md-6"><label  class=" form-control-label">Preço de inscrição </label>
                                 <input type="text" id="preco_inscricao" placeholder="Insira o preço" class="form-control" required> </div>
                              </div>
-                             <br>
-                             <div>
-                                 <br>
-                                 <div class="row">
-                                <div class="col-md-12"><div class="form-group"> <label  class=" form-control-label"></label>Descrição<input id="descricao" type="text" class="form-control" placeholder= "Descrição"required> </div></div>
-                             </div>
-                            </div>
-                             <br>      
+                             <br>     
                       </div>
+                    </div>
                       </div> 
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success btn-sm">

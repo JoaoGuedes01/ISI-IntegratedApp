@@ -1,6 +1,6 @@
 let secret
 let pilotID
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 
 window.onload=() => {
   secret = window.location.href.split('/')[4]

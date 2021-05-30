@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 let id_user_logged
 let licence_logged=null
 
@@ -374,6 +374,23 @@ const LoggedUser = async () =>{
 
                 if(data.License_Number__c =="no license"){
                   console.log("não tem licença")
+                  document.getElementById("cards_licenças").innerHTML += `
+  
+                  <div class="col-md-4">
+                  <div class="card">
+                  <div class="card-header">
+                  <strong>Licença Atual</strong>
+                  </div>
+                      <div class="card-body">
+                  <p>Não tem nenhuma licença</p>
+        
+              
+                  </p>
+                </div>
+                </div>   
+              
+              
+                    `    
                 }
                 else{
                   renderLicences();
@@ -424,6 +441,7 @@ const renderLicences = async () =>{
           `
       licence_logged=data.License_Type__c
         }
+
     });
 
     // const licence = await response.json()

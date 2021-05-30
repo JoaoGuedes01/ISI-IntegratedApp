@@ -1,5 +1,5 @@
 let id_user_logged
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 
 window.onload=() => {
 

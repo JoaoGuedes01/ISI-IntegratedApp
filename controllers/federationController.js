@@ -427,7 +427,7 @@ async function getTickets(req, res) {
 async function createTicket(req, res) {
     const ticket = {
         properties: {
-            subject: 'Pedido para Evento(SP Modelismo)',
+            subject: req.body.event_name,
             hs_pipeline: '0',
             hs_pipeline_stage: "2",
             content: req.body.content,

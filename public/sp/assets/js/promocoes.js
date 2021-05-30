@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
   
     renderPromocoes();
@@ -28,8 +28,8 @@ window.onload=() => {
             <th class='w-10 text-center'>Data Inicio</th>
             <th class='w-10 text-center'>Data Fim</th>
             <th class='w-10 text-center'>Preço</th>
-            <th class='w-10 text-center'>Ver publicação</th>
-            <th class='w-10 text-center'>Publicar</th>
+            <th class='w-10 text-center'>Publicação</th>
+            <th class='w-10 text-center'>Estado</th>
             </tr>   
         </thead>
         
@@ -60,6 +60,8 @@ window.onload=() => {
     
             if(evento != ""){
               
+           if(evento[0].EventStatus__c == "insc_abertas" || evento[0].EventStatus__c == "insc_fechadas"){
+
             strHtml += `
             <tr>
             <td class='w-10 text-center'>${evento[0].EventName__c}</td>
@@ -69,16 +71,24 @@ window.onload=() => {
  
                 <td class='w-10 text-center'>
                 <i class="far fa-file-image imagem" value='${evento[0].Id}'></i>
-            </td>
-            <td class='w-10 text-center'>
-            <i class="fas fa-upload publicar" value='${evento[0].Id}'></i>
-        </td>
+            </td>`
+       
+       if(evento[0].Published__c == "yes"){
+       strHtml +=`
+            <td class='w-20 text-center'><span class="badge badge-success"> Publicado </span></td>
             </tr>  `
-            
-            //}
+            }
+            else{ strHtml +=`
+            <td class='w-20 text-center'><span class="badge badge-pending"> Por Publicar </span></td>
+            </tr>  `}
+
+           }
+
+
             }
         i++
-          }      // const response3 = await fetch(`${domain}/admin/event`) 
+          }
+          // const response3 = await fetch(`${domain}/admin/event`) 
             // const eventoss = await response3.json()  
             // for (const eventos of eventoss) {
             //     strHtml += ` 
@@ -93,7 +103,46 @@ window.onload=() => {
 
 
    
-//gerir o botão de ver a imagem 
+// //gerir o botão de ver a imagem 
+// const btnImage = document.getElementsByClassName("imagem")
+
+// for (let i = 0; i < btnImage.length; i++) {
+   
+//  btnImage[i].addEventListener("click",async(event)=> {
+//     const id_promocao = btnImage[i].getAttribute("value")
+//     // window.open(`${domain}/img/events/${id_promocao}.png`)
+//     //  const response5 = await fetch(`${domain}/img/events/${id_promocao}.png`)
+//     //  const foto = await response5.json();
+     
+//     Swal.fire({
+//         imageUrl: `http://127.0.0.1:3000/img/events/${id_promocao}.png`,
+//         imageAlt: 'Promoção',
+//         showCancelButton: true,
+//         confirmButtonColor: '#28a745',
+//         cancelButtonColor: '#d33',
+//         cancelButtonText: 'Cancelar',
+//         confirmButtonText: 'Publicar'
+//     }).then(async (result) => {
+//      swal.fire({
+//         title: 'Tem a certeza?',
+//         text: "Será feita uma publicação no Facebook e no Twitter!",
+//         type: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#28a745',
+//         cancelButtonColor: '#d33',
+//         cancelButtonText: 'Cancelar',
+//         confirmButtonText: 'Publicar'
+//     })}).then(async (result) => {
+//                 const response = await fetch(`${domain}/admin/publishEventFB/${id_promocao}`)
+//                 const response2 = await fetch(`${domain}/admin/publishEventTwitter/${id_promocao}`)
+
+//                 if (response.status == 200 && response2.status == 200) {
+//                     swal.fire('Publicado', 'Publicação efetuada com sucesso!', 'success')
+//                 }
+//     })     
+//       })
+     
+// }
 const btnImage = document.getElementsByClassName("imagem")
 
 for (let i = 0; i < btnImage.length; i++) {
@@ -103,55 +152,40 @@ for (let i = 0; i < btnImage.length; i++) {
     // window.open(`${domain}/img/events/${id_promocao}.png`)
     //  const response5 = await fetch(`${domain}/img/events/${id_promocao}.png`)
     //  const foto = await response5.json();
-     
-    Swal.fire({
-        imageUrl: `${domain}/img/events/${id_promocao}.png`,
-        imageAlt: 'Promoção',
-      })
-     
- })
-}
-
-
-
-
-//gerir o botão de publicar
-const btnPublicar = document.getElementsByClassName("publicar")
-for (let i = 0; i < btnPublicar.length; i++) {
- btnPublicar[i].addEventListener("click", () => {
-    let Id = btnPublicar[i].getAttribute("value")  
-    swal.fire({
+Swal.mixin({
+  
+  }).queue([
+    {imageUrl: `http://127.0.0.1:3000/img/events/${id_promocao}.png`,
+    imageAlt: 'Promoção',
+    showCancelButton: true,
+    confirmButtonColor: '#28a745',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Publicar'},
+    {
         title: 'Tem a certeza?',
         text: "Será feita uma publicação no Facebook e no Twitter!",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Publicar'
-    }).then(async (result) => {
-        if (result.value) {
-        
-    
-                const response = await fetch(`${domain}/admin/publishEventFB/${Id}`)
-                const response2 = await fetch(`${domain}/admin/publishEventTwitter/${Id}`)
+    }
+   
+  ]).then(async(result) => {
+    if (result.value) {
+        const response = await fetch(`${domain}/admin/publishEventFB/${id_promocao}`)
+                const response2 = await fetch(`${domain}/admin/publishEventTwitter/${id_promocao}`)
+
 
                 if (response.status == 200 && response2.status == 200) {
                     swal.fire('Publicado', 'Publicação efetuada com sucesso!', 'success')
                 }
-                else {
-                swal.fire({
-                    type: 'error',
-                    title: 'Erro'
-                })
             }
-            
-        }
+      })
     })
-    renderPromocoes()
-     
- })
-}
+  }
    } 
  
 

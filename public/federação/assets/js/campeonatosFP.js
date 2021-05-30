@@ -1,4 +1,4 @@
-const domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
 
   renderCampeonatos();
@@ -10,7 +10,7 @@ let formAddCampeonato = document.getElementById("formAddCampeonato")
 
       formAddCampeonato.addEventListener("submit", async (event) => {
           event.preventDefault()
-          const content = document.getElementById("descricao").value
+          const content = "descriçao"
           const event_name = document.getElementById("name").value
           const eventtype = "campeonatoN" //faltam os internacionais
           const createdate = document.getElementById("data_inicio").value
@@ -47,9 +47,8 @@ content: content,
                 }) 
 
           console.log('depoissdofetchdeAdd')
-            onload()
           window.location.href="/public/federação/campeonatos.html"
-      
+
          
       }) 
 
@@ -104,6 +103,11 @@ console.log(campeonatos)
                 </tr>`   
               }
                 
+              if(campeonatos.results[i].properties.hs_pipeline_stage == 3){
+                strHtml += ` 
+                <td class='w-10 text-center'><span class="btn alert alert-danger" style="border-radius: 20px">Rejeitado</span></td>
+                </tr>`   
+              }
                        
      }
    

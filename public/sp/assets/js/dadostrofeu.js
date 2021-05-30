@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 let id_trofeu
 
 window.onload=() => {
@@ -80,15 +80,11 @@ function getCookie(cname) {
                     <td class='w-20 text-center'>${inscrito.CarTransponder__c}</td>
                     <td class='w-10 text-center'>${inscrito.Radio__c}</td>
                     <td class='w-10 text-center'>
-                        <i value='${id_trofeu}' class="fas fa-search-plus more"></i>  
+                        <i value='${inscrito.Name}' class="fas fa-search-plus more"></i>  
                     </td>
                 </tr>
             `
-            mec_name = inscrito.MechanicName__c
-            mec_email = inscrito.MechanicEmail__c
-            MechanicPhone__c = inscrito.MechanicPhone__c
-            mec_tel = inscrito.MechanicPhone__c
-            mesa = inscrito.Table__c
+          console.log(inscrito.Name)
             i++
         }
         strHtml += "</tbody>"
@@ -98,12 +94,14 @@ function getCookie(cname) {
         //botão ver mais 
         const btnMore = document.getElementsByClassName("more")
         for (let i = 0; i < btnMore.length; i++) {
-         btnMore[i].addEventListener("click", () => {
- 
+         btnMore[i].addEventListener("click", async() => {
+           
              //get id trofeu selecionado
-            let id_trofeu = btnMore[i].getAttribute("value");
+            let selecionado = btnMore[i].getAttribute("value");
             console.log("O evento selecionado é: " + id_trofeu)
-
+            for(const inscrito of inscritos){
+              if(selecionado == inscrito.Name){
+         
             swal.fire({
               title: 'Dados do mecânico',
               html:
@@ -116,18 +114,18 @@ function getCookie(cname) {
 
         
               <div class="card-body">
-                <p>Nome: ${mec_name}</p>
-                <p>Email: ${mec_email}</p>
-                <p>Telefone: ${mec_tel}</p>
-                <p>Mesa: ${mesa}</p>
+                <p>Nome: ${inscrito.MechanicName__c}</p>
+                <p>Email: ${inscrito.MechanicEmail__c}</p>
+                <p>Telefone: ${inscrito.MechanicPhone__c}</p>
+                <p>Mesa: ${inscrito.Table__c}</p>
               </div>
               </div>   
                 
                   </div>
               </div>
           </div>`
-
-          })           
+            
+          })}    }      
          })
      }
 

@@ -1,3 +1,4 @@
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
 
     renderReportagem();
@@ -19,7 +20,7 @@ window.onload=() => {
         
         <tbody>`
 
-      const response = await fetch(`api/webcelos/requests`)
+      const response = await fetch(`${domain}/webcelos/requests`)
       const reportagens = await response.json()
       let i = 1
       
@@ -32,7 +33,7 @@ window.onload=() => {
         for(let l=0; l<parsedSummary.properties.length;l++){
         
         if(parsedSummary.properties[l]=="cvid"){
-          const response2 = await fetch(`api/webcelos/requests/details/${reportagem.product_id}`)
+          const response2 = await fetch(`${domain}/webcelos/requests/details/${reportagem.product_id}`)
           const detalhes = await response2.json()
           console.log(detalhes)
          // console.log(detalhes.moloni[0])

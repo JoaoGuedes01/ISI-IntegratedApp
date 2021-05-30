@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
   //buscar o id do evento
   id_campeonato = getCookie('id_campeonato')

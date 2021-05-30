@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
   
     renderPromocoes();
@@ -40,7 +40,7 @@ window.onload=() => {
     
     
             if(evento != ""){
-              
+                if(evento[0].EventStatus__c == "insc_abertas" || evento[0].EventStatus__c == "insc_fechadas"){             
             strHtml += `
             <tr>
             <td class='w-10 text-center'>${evento[0].EventName__c}</td>
@@ -51,6 +51,7 @@ window.onload=() => {
             </tr>
            `
             }
+        }
         i++
           }
           strHtml += "</tbody>"

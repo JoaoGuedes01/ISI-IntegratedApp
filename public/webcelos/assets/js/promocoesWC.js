@@ -1,4 +1,4 @@
-let domain = "api"
+let domain = "http://127.0.0.1:3000/api"
 window.onload=() => {
 
     renderPromocoes();
@@ -21,6 +21,16 @@ window.onload=() => {
         
         <tbody>`
 
+        //verificar data
+    var today = new Date();
+
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;    
+    console.log(today)
+
       const response = await fetch(`${domain}/webcelos/requests`) 
       const promocoes = await response.json()
       let i = 1
@@ -41,26 +51,28 @@ window.onload=() => {
         const detalhes = await response2.json()
         //console.log(detalhes)
        // console.log(detalhes.moloni[0])
-        for(j=0; j< detalhes.salesforce.length;j++){
+        for(j=0; j< detalhes.salesforce.length;j++){ 
   
-  
-       //   console.log(detalhes.moloni[j]);
+if(detalhes.salesforce[j].StartDate__c > today ){
+        
+    console.log(today);
+       console.log(detalhes.salesforce[j].StartDate__c);
            
             strHtml += `
                 <tr>  
                     <td class='w-20 text-center'>SP Modelismo </td> 
                     <td class='w-20 text-center'>${promocao.name}</td>   
                     <td class='w-20 text-center'>${detalhes.salesforce[j].InscPrice__c}</td>
-                    <td class='w-20 text-center'>${detalhes.salesforce[j].CloseDate__c}</td>
                     <td class='w-20 text-center'>${detalhes.salesforce[j].StartDate__c}</td>
+                    <td class='w-20 text-center'>${detalhes.salesforce[j].CloseDate__c}</td>
                     <td class='w-10 text-center'>
-                    <i value='${detalhes.salesforce[j].Id}' class="fas fa-upload img" title="Aceitar campeonato">
+                    <i value='${detalhes.salesforce[j].Id}' class="fas fa-upload img" title="Enviar Promoção">
               
                 </tr>
             `
             i++
         
-        }}
+        }} }
         strHtml += "</tbody>"
         tblPromocoes.innerHTML = strHtml
     }
@@ -128,6 +140,9 @@ for (let i = 0; i < selectedProm.length; i++) {
                   body: file
                   
             })
+            if (response.status == 200) {
+                swal.fire('Promoção envia com sucesso','A promoção foi enviada à SPModelismo', 'success')
+            }
 
             
             console.log(response)

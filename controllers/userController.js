@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 const tokensecret = "OJoaoGuedeséOmelhorProgramadorQueExiste";
 const jwtDecode = require('jwt-decode');
 const hubspotClient = require('../config/hubspot');
+const { contactsModels } = require('@hubspot/api-client');
 
 
 //Multer Config
@@ -98,7 +99,8 @@ async function getLoggedUser(req, res) {
             Postal_Code__c: 1,
             Address__c: 1,
             City__c: 1,
-            Password__c: 1
+            Password__c: 1,
+            Foto__c: 1
         });
 
     //Verificação da existencia do utilizador
@@ -388,6 +390,8 @@ async function RegisterInEvent(req, res) {
             License_Number__c: 1
         });
 
+    if (resultPilot[0].License_Number__c == 'no license') return res.send({ status: 500, message: 'Cant register without license' })
+
     const resultLicense = await conn.sobject("License__c").find(
         {
             Id: resultPilot[0].License_Number__c
@@ -545,21 +549,23 @@ async function RegisterInEvent(req, res) {
         });
 
     console.log(reg.id);
-    const precoIVA = event.InscPrice__c + (event.InscPrice__c * 0.23)
+    const precoIVA = event.InscPrice__c + (event.InscPrice__c * 0.23);
+    var subTotalFormatted = parseFloat(precoIVA).toFixed(2);
+    console.log(subTotalFormatted);
     const create_payment_json = {
         "intent": "sale",
         "payer": {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "api/user/successRegEvent/" + precoIVA + '/' + reg.id,
-            "cancel_url": "api/cancel"
+            "return_url": "http://127.0.0.1:3000/api/user/successRegEvent/" + subTotalFormatted + '/' + reg.id,
+            "cancel_url": "http://127.0.0.1:3000/api/cancel"
         },
         "transactions": [{
             "item_list": {
                 "items": [{
                     "name": 'Inscrição em ' + event.EventName__c,
-                    "price": precoIVA,
+                    "price": subTotalFormatted,
                     "currency": "EUR",
                     "quantity": "1"
                 }]
@@ -571,10 +577,11 @@ async function RegisterInEvent(req, res) {
             "description": "Inscrição num evento"
         }]
     };
+    console.log(create_payment_json)
 
     paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
-            throw error;
+            console.log(error.response)
         } else {
             for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === 'approval_url') {
@@ -754,6 +761,19 @@ async function successRegPayment(req, res) {
 
 async function getEvents(req, res) {
     try {
+        //Extrair o token da cookie
+        const token = req.cookies.SessionToken;
+        if (!token) {
+            res.status(400).json({ message: 'There is no logged user' });
+        }
+
+        //Descodificar o token com o secret
+        const decoded = jwtDecode(token);
+        userid = decoded.userID;
+
+        let allEvents = [];
+        let userRegs = [];
+        let notRegs = [];
         //Query que procura por todos os eventos
         const result = await conn.sobject("EventsSP__c").find(
             {},
@@ -768,15 +788,41 @@ async function getEvents(req, res) {
                 Track__c: 1
             });
 
-        //Verificação da existencia de eventos
-        if (!result) return res.status(404).send({
-            status: req.status,
-            message: "No events found"
-        })
+        const getUserRegs = await conn.sobject("Registration__c").find(
+            {
+                PilotID__c: userid
+            },
+            {
+                EventID__c: 1
+            });
+
+
+        for (i = 0; i < result.length; i++) {
+            console.log(result[i].Id)
+            allEvents.push(result[i].Id);
+        }
+
+        for (i = 0; i < getUserRegs.length; i++) {
+            console.log(getUserRegs[i].EventID__c)
+            userRegs.push(getUserRegs[i].EventID__c);
+        }
+
+        for (i = 0; i < allEvents.length; i++) {
+            if(userRegs.includes(allEvents[i])){
+                console.log('inclui');
+            }else{
+                notRegs.push(allEvents[i])
+            }
+        }
+
+        return res.send({
+            all: allEvents,
+            userRegs: userRegs,
+            notRegs: notRegs
+        });
 
         //Caso haja eventos criados
-        const events = result;
-        return res.send(events);
+
 
     } catch (error) {
         res.send(error);
@@ -1181,8 +1227,8 @@ async function requestLicense(req, res) {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "api/user/successLicense/" + licensePrice + "/" + licensePriceIVA + "/" + licenseID,
-            "cancel_url": "api/cancel"
+            "return_url": "http://127.0.0.1:3000/api/user/successLicense/" + licensePrice + "/" + licensePriceIVA + "/" + licenseID,
+            "cancel_url": "http://127.0.0.1:3000/api/cancel"
         },
         "transactions": [{
             "item_list": {
