@@ -6,7 +6,7 @@ window.onload=() => {
 
    let tblReportagens = document.getElementById("tblReportagens"); 
     const renderReportagem = async () => {
-        console.log("entrou renderReportagem")
+        //console.log("entrou renderReportagem")
         let strHtml = `
         <thead >
         <tr>           
@@ -28,14 +28,14 @@ window.onload=() => {
 
         let parsedSummary = JSON.parse(reportagem.summary)
 
-        console.log(parsedSummary.properties)
+        //console.log(parsedSummary.properties)
   
         for(let l=0; l<parsedSummary.properties.length;l++){
         
         if(parsedSummary.properties[l]=="cvid"){
           const response2 = await fetch(`${domain}/webcelos/requests/details/${reportagem.product_id}`)
           const detalhes = await response2.json()
-          console.log(detalhes)
+          //console.log(detalhes)
          // console.log(detalhes.moloni[0])
           for(j=0; j< detalhes.salesforce.length;j++){
     
