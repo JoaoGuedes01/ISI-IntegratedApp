@@ -54,19 +54,6 @@ let formAddTrofeu = document.getElementById("formAddTrofeu")
             }}
 
           
-
-         
-// console.log(name);
-// console.log(event_type);
-// console.log(event_status);
-// console.log(data_inicio);
-// console.log(data_fim);  
-// console.log(id_pista_id);
-// console.log(preco_inscricao);     
-// console.log(arrayCampanha);
-
-
-
 let data = {
   EventName__c: name,
   EventStatus__c: event_status,
@@ -80,7 +67,7 @@ let data = {
   MinReg__c: min_regist
   };
 
-console.log(data);
+
          
 // post criar trofeu
             let response
@@ -163,17 +150,17 @@ console.log(data);
 
                     const response5 = await fetch(`${domain}/admin//registrationByEventID/${trofeu.Id}`) 
                     const inscritos = await response5.json()
-                    //console.log(inscritos.length)
+
 
                      
                     let n_inscritos= 0;
-                      //console.log("entrou")
+     
                     
                       n_inscritos=inscritos.length
                     
                     estado =trofeu.EventStatus__c
                     
-                    console.log(estado)
+              
                     
                       strHtml += `<td class='w-10 text-center' width = 10%> ${n_inscritos} </td>`
 
@@ -183,7 +170,7 @@ console.log(data);
                     }
                     if(trofeu.EventStatus__c == "insc_fechadas"){
                       strHtml +=   
-                      `<td class='w-10 text-center'><span class="badge badge-pending" >${trofeu.EventStatus__c}</span></td>`
+                      `<td class='w-10 text-center'><span class="badge badge-pending2" >${trofeu.EventStatus__c}</span></td>`
                     }
 
                     if(trofeu.EventStatus__c == "insc_abertas"){
@@ -222,22 +209,22 @@ console.log(data);
 
           //get id trofeu selecionado
          let id_trofeu = btnMore[i].getAttribute("value");
-         console.log("O evento selecionado é: " + id_trofeu)
+     
          const response6 = await fetch(`${domain}/admin/eventById/${id_trofeu}`) 
         const trofeu = await response6.json()
-        console.log(trofeu)
+
 
          setCookie('id_trofeu', id_trofeu, 1);
-         console.log(trofeu[0].EventName__c)
+   
          if(trofeu[0].EventStatus__c == "insc_fechadas"){
          
-          console.log("fechadas");
+     
           window.location.href = "distribuiTrofeus.html"
          
          }
          else{
         window.location.href = "/public/sp/dadostrofeu.html"
-        console.log("else");
+   
       }
           
       })
@@ -246,7 +233,7 @@ console.log(data);
   // Gerir o clique no ícone de Remover      
   const btnDelete = document.getElementsByClassName("apagar")
   for (let i = 0; i < btnDelete.length; i++) {
-      console.log('entrou' + btnDelete[i].value)
+
       btnDelete[i].addEventListener("click", () => {
           swal.fire({
               title: 'Tem a certeza?',
@@ -294,7 +281,7 @@ btnFechar[i].addEventListener("click", async(event) => {
 
    //get id trofeu selecionado
   let id_trofeu = btnFechar[i].getAttribute("value");
-  console.log(id_trofeu);
+ 
     
   const response8 = await fetch(`${domain}/admin//registrationByEventID/${id_trofeu}`) 
   const inscritos = await response8.json()
@@ -302,7 +289,7 @@ btnFechar[i].addEventListener("click", async(event) => {
   const response9 = await fetch(`${domain}/admin/eventById/${id_trofeu}`) 
   const trofeuF = await response9.json()
 
-  console.log(trofeuF[0].EventName__c + trofeuF[0].MinReg__c+ n_inscritos)
+
 
   await swal.fire({
     title: 'Pretende:',
@@ -371,7 +358,7 @@ btnFechar[i].addEventListener("click", async(event) => {
           }).then(async (result) => {
               if (result.value) {
                let  response = await fetch(`${domain}/admin/cancelEvent/${id_trofeu}`) 
-               console.log("novo estado: " + trofeus.EventStatus__c)
+              
                     }
                    window.location.href="/public/sp/proximostrofeus.html"
               })
@@ -421,7 +408,7 @@ function setCookie(cname, cvalue, exdays) {
 //Mostrar Pistas
 let Pistas = document.getElementById("Pistas")
 Pistas.addEventListener("mousedown", async(event) => {
-  console.log("entrei no select Pistas")
+
     
 let strHtml 
 
