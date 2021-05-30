@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const isAuth = require('../MiddleWare/isAuthenticated');
+const isAuth = require('../Middleware/isAuthenticated');
 const webcelosController = require('../controllers/webcelosController');
 
 
