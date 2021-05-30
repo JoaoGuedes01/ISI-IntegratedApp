@@ -558,8 +558,8 @@ async function RegisterInEvent(req, res) {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://127.0.0.1:3000/api/user/successRegEvent/" + subTotalFormatted + '/' + reg.id,
-            "cancel_url": "http://127.0.0.1:3000/api/cancel"
+            "return_url": "https://isi-integratedapp.joaoguedes01.repl.co/api/user/successRegEvent/" + subTotalFormatted + '/' + reg.id,
+            "cancel_url": "https://isi-integratedapp.joaoguedes01.repl.co/api/cancel"
         },
         "transactions": [{
             "item_list": {
@@ -1227,8 +1227,8 @@ async function requestLicense(req, res) {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://127.0.0.1:3000/api/user/successLicense/" + licensePrice + "/" + licensePriceIVA + "/" + licenseID,
-            "cancel_url": "http://127.0.0.1:3000/api/cancel"
+            "return_url": "https://isi-integratedapp.joaoguedes01.repl.co/api/user/successLicense/" + licensePrice + "/" + licensePriceIVA + "/" + licenseID,
+            "cancel_url": "https://isi-integratedapp.joaoguedes01.repl.co/api/cancel"
         },
         "transactions": [{
             "item_list": {
