@@ -236,7 +236,7 @@ console.log(data);
          
          }
          else{
-        window.location.href = "dadostrofeu.html"
+        window.location.href = "/public/sp/dadostrofeu.html"
         console.log("else");
       }
           
