@@ -29,34 +29,34 @@ window.onload=() => {
     var yyyy = today.getFullYear();
 
     today = yyyy + '-' + mm + '-' + dd;    
-    console.log(today)
+    ////console.log(today)
 
       const response = await fetch(`${domain}/webcelos/requests`) 
       const promocoes = await response.json()
       let i = 1
-      //console.log(promocoes)
+      ////console.log(promocoes)
       for (const promocao of promocoes) {
                   
       //tem de ser do tipo "cmd"
-      //console.log(promocao.summary)
+      ////console.log(promocao.summary)
 
       let parsedSummary = JSON.parse(promocao.summary)
 
-      //console.log(parsedSummary.properties)
+      ////console.log(parsedSummary.properties)
 
       for(let l=0; l<parsedSummary.properties.length;l++){
       
       if(parsedSummary.properties[l]=="cmd"){
         const response2 = await fetch(`${domain}/webcelos/requests/details/${promocao.product_id}`)
         const detalhes = await response2.json()
-        //console.log(detalhes)
-       // console.log(detalhes.moloni[0])
+        ////console.log(detalhes)
+       // //console.log(detalhes.moloni[0])
         for(j=0; j< detalhes.salesforce.length;j++){ 
   
 if(detalhes.salesforce[j].StartDate__c > today ){
         
-    console.log(today);
-       console.log(detalhes.salesforce[j].StartDate__c);
+    //console.log(today);
+       //console.log(detalhes.salesforce[j].StartDate__c);
            
             strHtml += `
                 <tr>  
@@ -87,7 +87,7 @@ for (let i = 0; i < selectedProm.length; i++) {
 
     selectedProm[i].addEventListener("click", () => {
         let id_evento = selectedProm[i].getAttribute("value");
-        //console.log("A promoção selecionada é:" + id_evento)
+        ////console.log("A promoção selecionada é:" + id_evento)
          Swal.fire({
             
             title: 'Enviar serviço publicitário',
@@ -115,12 +115,12 @@ for (let i = 0; i < selectedProm.length; i++) {
             
           
 
-//            console.log("foto " + files)
+//            //console.log("foto " + files)
 
         
                 // const fileReader = new FileReader();
                 // fileReader.readAsDataURL(files);
-                // console.log("foto " + this.result)
+                // //console.log("foto " + this.result)
             
 
 
@@ -129,7 +129,7 @@ for (let i = 0; i < selectedProm.length; i++) {
             //a partir daqui está tudo bem (é só trocar o files)
             const file = new FormData();
 
-            console.log(selectedFile.files)
+            //console.log(selectedFile.files)
             file.append('imagem',selectedFile.files[0]);
             
 
@@ -145,7 +145,7 @@ for (let i = 0; i < selectedProm.length; i++) {
             }
 
             
-            console.log(response)
+            //console.log(response)
             
 
          }
@@ -156,12 +156,12 @@ for (let i = 0; i < selectedProm.length; i++) {
 
 //            let Id = selectedFile[i].getElementsByClassName('input');
     
-//                  console.log(Id);   
+//                  //console.log(Id);   
 //     inputElement.addEventListener("change", handleFiles, false);
 //     let fileList = "";
 //     function handleFiles(flieList) {
 //     fileList = this.files; /* now you can work with the file list */
-//     console.log("entrou handleFiles " + fileList);
+//     //console.log("entrou handleFiles " + fileList);
 // }
 
             
