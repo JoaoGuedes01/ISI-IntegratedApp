@@ -108,7 +108,7 @@ const renderEventos = async () => { //falta confirmar a licença
           </div>
         </div>
       `
-      } else {
+      } else if (userEv[0].EventStatus__c == 'cancelado') {
         document.getElementById("cards_eventos").innerHTML +=
           `
         <div class="col-md-4">
@@ -123,13 +123,35 @@ const renderEventos = async () => { //falta confirmar a licença
               <p>Tipo: ${userEv[0].EventType__c}</p>
               <p>Preço: ${userEv[0].InscPrice__c}€</p>
               <p>Pista: <a class="map" id="pistaaa" value='${userEv[0].Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
-              <p> <button value='${userEv[0].Id}' class="btn btn-success inscrever" name="increver"> Participar </button></p>
+              <p> <span class="badge badge-warning" name=""> Cancelado </span></a>
   
    
     </p>
           </div>
         </div>
       `
+      } else {
+        document.getElementById("cards_eventos").innerHTML +=
+          `
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <strong>${userEv[0].EventName__c}</strong>
+          </div>
+
+          <div class="card-body">
+            <p>Desde: ${userEv[0].StartDate__c}</p>
+            <p>Até: ${userEv[0].CloseDate__c}</p>
+            <p>Tipo: ${userEv[0].EventType__c}</p>
+            <p>Preço: ${userEv[0].InscPrice__c}€</p>
+            <p>Pista: <a class="map" id="pistaaa" value='${userEv[0].Track__c}' onmousemove="changeStyle(this)" onmouseleave="changeStylee(this)">Ver localização</a></p>
+            <p> <button value='${userEv[0].Id}' class="btn btn-success inscrever" name="increver"> Participar </button></p>
+
+ 
+  </p>
+        </div>
+      </div>
+    `
       }
     }
   }
