@@ -38,7 +38,7 @@ const renderCampeonatos = async () => {
 
 const response = await fetch(`${domain}/admin/fedRequests`) 
 const campeonatos = await response.json()
-//console.log(campeonatos)
+////console.log(campeonatos)
 let i = 0
 for (const campeonato of campeonatos) {
 
@@ -70,7 +70,7 @@ for (const campeonato of campeonatos) {
           
           
           if(eventoo.EventName__c == campeonato.EventName__c){
-            //console.log(eventoo.EventName__c + " " + id_campeonato)
+            ////console.log(eventoo.EventName__c + " " + id_campeonato)
       
             id = eventoo.Id
       
@@ -141,7 +141,7 @@ btnAceitar[i].addEventListener("click", () => {
 
    //get id trofeu selecionado
   let id_campeonato = btnAceitar[i].getAttribute("value");
-  console.log("O evento selecionado é: " + id_campeonato)
+  //console.log("O evento selecionado é: " + id_campeonato)
 
   swal.fire({
       title: 'Tem a certeza?',
@@ -155,7 +155,7 @@ btnAceitar[i].addEventListener("click", () => {
   }).then(async (result) => {
       if (result.value) {
           let Id = btnAceitar[i].getAttribute("value")
-          console.log(Id);
+          //console.log(Id);
 
 
           
@@ -164,12 +164,12 @@ btnAceitar[i].addEventListener("click", () => {
           for(const campeonato of campeonatos){
 
             if(campeonato.Id == Id){
-             // console.log(campeonato)
+             // //console.log(campeonato)
 
 
                     //criar evento na salesforce do tipo campeonato
                             
-                            console.log('antesdofetchdeAdd')
+                            //console.log('antesdofetchdeAdd')
 
                             let campanha =""
                             let campanha2=""
@@ -200,16 +200,16 @@ btnAceitar[i].addEventListener("click", () => {
                                 body: JSON.stringify(data)
                               }) 
 
-                              console.log("ola")
+                              //console.log("ola")
                               const aceitee = await response.json()
               
                       
                         const response2 = await fetch(`${domain}/admin/acceptFedReq/${campeonato.Id}`) 
                         const aceite = await response2.json()
 
-                        console.log("ola")
-                        console.log(aceitee)
-                        console.log(aceite)
+                        //console.log("ola")
+                        //console.log(aceitee)
+                        //console.log(aceite)
 
                         if (aceitee.status == 200 && aceite.status == 200) {
                           swal.fire('Sucesso', 'Campeonato aceite! Faça refresh da página.' , 'success')
@@ -235,13 +235,13 @@ btnAceitar[i].addEventListener("click", () => {
 
 //Botão rejeitar
 const btnRejeitar = document.getElementsByClassName("rejeitar")
-//console.log(campeonato)
+////console.log(campeonato)
 for (let i = 0; i < btnRejeitar.length; i++) {
 btnRejeitar[i].addEventListener("click", () => {
 
    //get id trofeu selecionado
   let id_campeonato = btnRejeitar[i].getAttribute("value");
-  console.log("O evento selecionado é: " + id_campeonato)
+  //console.log("O evento selecionado é: " + id_campeonato)
 
 
   swal.fire({
@@ -255,21 +255,21 @@ btnRejeitar[i].addEventListener("click", () => {
       confirmButtonText: 'Remover'
   }).then(async (result) => {
       if (result.value) {
-        console.log("entrei")
+        //console.log("entrei")
           
           
-        console.log("O id selecionado é: " + id_campeonato);
+        //console.log("O id selecionado é: " + id_campeonato);
 
           for(const campeonato of campeonatos){
 
             if(campeonato.Id == id_campeonato){
 
-              console.log("O id selecionado é: " + campeonato.Id);
+              //console.log("O id selecionado é: " + campeonato.Id);
 
               let response = await fetch(`${domain}/admin/rejectChampionship/${campeonato.Id}`)
               const rejeitado = await response.json()
 
-              console.log(rejeitado)
+              //console.log(rejeitado)
            
             }}
  
@@ -294,7 +294,7 @@ btnMore[i].addEventListener("click", () => {
 
   //get id trofeu selecionado
   let id_campeonato = btnMore[i].getAttribute("value");
-  console.log("O evento selecionado é: " + id_campeonato)
+  //console.log("O evento selecionado é: " + id_campeonato)
 
   setCookie('id_campeonato', id_campeonato, 1);    //trocar para id se possível
   window.location.href = "dadoscampeonato.html"

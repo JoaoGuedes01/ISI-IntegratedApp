@@ -9,7 +9,7 @@ async function register() {
     Rep_Password: document.getElementById("Rep_Password").value,
     Birth_Date__c: document.getElementById("Birth_Date").value
   };
-  console.log(data);
+  //console.log(data);
   const response = await fetch(`${domain}/user/register`, {
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ async function register() {
     credentials: 'include'
   }).then(res => res.json())
     .then(data => {
-      console.log(data);
+      //console.log(data);
     });
 
     window.location.href = "/login"

@@ -159,12 +159,12 @@ window.onload=() => {
                                     
 
                                     //verificar se todos os campos estão preenchidos
-                                    console.log(document.getElementById("telefone").value +";" + document.getElementById("identifier").value +";" +
-                                    document.getElementById("nome_identifier").value +";" +   document.getElementById("nif").value+";" +
-                                    document.getElementById("codigo").value+";" +
-                                    document.getElementById("morada").value+";" +
-                                    document.getElementById("cidade").value
-                                    )
+                                    // console.log(document.getElementById("telefone").value +";" + document.getElementById("identifier").value +";" +
+                                    // document.getElementById("nome_identifier").value +";" +   document.getElementById("nif").value+";" +
+                                    // document.getElementById("codigo").value+";" +
+                                    // document.getElementById("morada").value+";" +
+                                    // document.getElementById("cidade").value
+                                    // )
                                     
                                     if(document.getElementById("telefone").value !==null && document.getElementById("identifier").value!==null && 
                                     document.getElementById("nome_identifier").value!==null && document.getElementById("nif").value!==null && 
@@ -190,7 +190,7 @@ window.onload=() => {
                                                     tipo = document.getElementById('nacional').value;
                                                    }
                         
-                                                console.log(tipo)
+                                                //console.log(tipo)
 
 
                                                 let data = {
@@ -204,7 +204,7 @@ window.onload=() => {
                                                     License_Type__c: tipo
                                                 }
             
-                                                console.log(data)
+                                                //console.log(data)
             
             
                                                 const response = await fetch(`${domain}/user/requestLicense`, {
@@ -218,7 +218,7 @@ window.onload=() => {
                                                     credentials: 'include'
                                                   }).then(res => res.json())
                                                     .then(data => {
-                                                      console.log(data);
+                                                      //console.log(data);
                                                       window.open(data.forwardLink)
 
                                                     });
@@ -232,7 +232,7 @@ window.onload=() => {
                                     }
 
                                     else{
-                                        console.log("algo está mal")
+                                        //console.log("algo está mal")
                                     }
                         
                                 }
@@ -270,7 +270,7 @@ window.onload=() => {
                           }
 
                            else{
-                            console.log(tipo)
+                            //console.log(tipo)
 
                             let data = {
                                 Phone_Number__c:  dados.Phone_Number__c,
@@ -283,7 +283,7 @@ window.onload=() => {
                                 License_Type__c: tipo
                             }
     
-                            console.log(data)
+                            //console.log(data)
     
                             const response = await fetch(`${domain}/user/requestLicense`, {
                                 headers: {
@@ -296,7 +296,7 @@ window.onload=() => {
                                 credentials: 'include'
                               }).then(res => res.json())
                                 .then(data => {
-                                  console.log(data);
+                                  //console.log(data);
                                   window.open(data.forwardLink)
                                  
                                 });
@@ -307,7 +307,7 @@ window.onload=() => {
 
                           if (document.getElementById('nacional').checked) {
                             tipo = document.getElementById('nacional').value;
-                            console.log(tipo)
+                            //console.log(tipo)
 
                             let data = {
                                 Phone_Number__c:  dados.Phone_Number__c,
@@ -320,7 +320,7 @@ window.onload=() => {
                                 License_Type__c: tipo
                             }
     
-                            console.log(data)
+                            //console.log(data)
     
                             const response = await fetch(`${domain}/user/requestLicense`, {
                                 headers: {
@@ -333,7 +333,7 @@ window.onload=() => {
                                 credentials: 'include'
                               }).then(res => res.json())
                                 .then(data => {
-                                  console.log(data);
+                                  //console.log(data);
                                   window.open(data.forwardLink)
                                  
                                 });
@@ -356,7 +356,7 @@ window.onload=() => {
 //get user logado
 const LoggedUser = async () =>{
 
-    //console.log("ola")
+    ////console.log("ola")
   
     const resposne = await fetch(`${domain}/user/loggedUser`, {
         headers: {
@@ -367,13 +367,13 @@ const LoggedUser = async () =>{
         credentials: 'include'
     }).then(res => res.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
                 id_user_logged =data.Id;
   
-                console.log(data.License_Number__c)
+                //console.log(data.License_Number__c)
 
                 if(data.License_Number__c =="no license"){
-                  console.log("não tem licença")
+                  //console.log("não tem licença")
                   document.getElementById("cards_licenças").innerHTML += `
   
                   <div class="col-md-4">
@@ -406,7 +406,7 @@ const LoggedUser = async () =>{
 //Render Licences
 let card_trofeus = document.getElementById("cards_licenças");
 const renderLicences = async () =>{
-    console.log("entrou")
+    //console.log("entrou")
 
 
     //verificar obter id licença
@@ -419,7 +419,7 @@ const renderLicences = async () =>{
         credentials: 'include'
     }).then(res => res.json())
     .then(data => {
-        console.log(data)
+        //console.log(data)
 
         if(data.status!==404){
         document.getElementById("cards_licenças").innerHTML += `
@@ -445,7 +445,7 @@ const renderLicences = async () =>{
     });
 
     // const licence = await response.json()
-    // console.log(licence)
+    // //console.log(licence)
 
 
 

@@ -11,7 +11,7 @@ async function getLoggedUser() {
     credentials: 'include'
   }).then(res => res.json())
     .then(data => {
-      console.log(data);
+      //console.log(data);
     });
 
 

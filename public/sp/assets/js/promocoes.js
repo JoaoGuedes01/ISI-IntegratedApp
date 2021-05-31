@@ -18,7 +18,7 @@ window.onload=() => {
  
  today = yyyy + '-' + mm + '-' + dd;          
      
- console.log(today)
+ //console.log(today)
 
         
         let strHtml = `
@@ -37,7 +37,7 @@ window.onload=() => {
 
             const response = await fetch(`${domain}/admin/woRequests`) 
             const promocoes = await response.json()      
-            //console.log(promocoes)
+            ////console.log(promocoes)
 
 
       let i = 1
@@ -49,9 +49,9 @@ window.onload=() => {
      
 
         for(let l=0; l<parsedSummary.properties.length;l++){
-            //console.log(parsedSummary.properties)
+            ////console.log(parsedSummary.properties)
 
-        //console.log(parsedSummary.properties)
+        ////console.log(parsedSummary.properties)
         if(parsedSummary.properties[l]=="cmd"||parsedSummary.properties[l]=="cmd,cvid"){
 
             const response = await fetch(`${domain}/admin/eventById/${promocao.Reference__c}`) 

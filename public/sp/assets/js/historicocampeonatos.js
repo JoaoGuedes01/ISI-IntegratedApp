@@ -18,7 +18,7 @@ const renderCampeonatos = async () => {
               
               today = yyyy + '-' + mm + '-' + dd;          
                   
-              console.log(today)
+              //console.log(today)
 
 //falta a pista
   let strHtml = `
@@ -68,7 +68,7 @@ for (const campeonato of campeonatos) {
         
         
         if(eventoo.EventName__c == campeonato.EventName__c){
-          //console.log(eventoo.EventName__c + " " + id_campeonato)
+          ////console.log(eventoo.EventName__c + " " + id_campeonato)
     
           id = eventoo.Id
     
@@ -122,7 +122,7 @@ btnMore[i].addEventListener("click", () => {
 
   //get id trofeu selecionado
   let id_campeonato = btnMore[i].getAttribute("value");
-  console.log("O evento selecionado é: " + id_campeonato)
+  //console.log("O evento selecionado é: " + id_campeonato)
 
   setCookie('id_campeonato', id_campeonato, 1);    //trocar para id se possível
   window.location.href = "dadoscampeonato.html"

@@ -25,7 +25,7 @@ const LoggedUser = async () =>{
         credentials: 'include'
     }).then(res => res.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
                 id_user_logged =data.Id;
                 email_user_logged=data.Email__c;
                 contacto=data.Phone_Number__c;
@@ -42,7 +42,7 @@ const LoggedUser = async () =>{
   //get dados do user logado
   const renderDados = async () => {
 
-    console.log(id_user_logged)
+    //console.log(id_user_logged)
 
     const response = await fetch(`${domain}/user/${id_user_logged}`,{
         headers: {
@@ -54,7 +54,7 @@ const LoggedUser = async () =>{
     })
     const dados = await response.json()
 
-    console.log(dados)
+    //console.log(dados)
 
 
 
@@ -117,7 +117,7 @@ async function changePassword() {
     let data = {
         email: email_user_logged
       };
-      console.log(data);
+      //console.log(data);
       
       const response = await fetch(`${domain}/user/requestPasswordChange`, {
         headers: {
@@ -130,7 +130,7 @@ async function changePassword() {
         credentials: 'include'
       }).then(res => res.json())
         .then(data => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: "Alterar password",
             text: "Verifique o seu email"
@@ -174,7 +174,7 @@ async function alterarDados(){
     };
 
 
-    console.log(data);
+    //console.log(data);
     
     const response = await fetch(`${domain}/user/updateLicense`, {
       headers: {

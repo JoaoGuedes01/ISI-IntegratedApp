@@ -23,7 +23,7 @@ window.onload=() => {
       const pedidos = await response.json()
       let i = 1
       for (const pedido of pedidos) {
-          console.log(pedidos)
+          //console.log(pedidos)
           strHtml += `
               <tr>
               

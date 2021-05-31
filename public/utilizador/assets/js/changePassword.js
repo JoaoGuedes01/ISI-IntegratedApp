@@ -5,8 +5,8 @@ let domain = "https://ISI-IntegratedApp.joaoguedes01.repl.co/api"
 window.onload=() => {
   secret = window.location.href.split('/')[4]
   pilotID = window.location.href.split('/')[5]
-  console.log('secret: '+ secret);
-  console.log('userID: '+ pilotID);
+  //console.log('secret: '+ secret);
+  //console.log('userID: '+ pilotID);
 }
 
 async function resetPassword(){
@@ -15,7 +15,7 @@ async function resetPassword(){
       password: document.getElementById("password_input").value,
       repPass: document.getElementById("password_input2").value
     };
-    console.log(data);
+    //console.log(data);
   
     const response = await fetch(`${domain}/user/changePassword/`+secret+`/`+pilotID, {
       headers: {
@@ -28,7 +28,7 @@ async function resetPassword(){
       credentials: 'include'
     }).then(res => res.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
 
         if(data.status==200){
             Swal.fire({

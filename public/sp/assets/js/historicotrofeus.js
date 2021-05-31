@@ -37,26 +37,26 @@ let strHtml = `
 
 const response = await fetch(`${domain}/admin/events`) 
 const trofeus = await response.json()
-//console.log(trofeus)
+////console.log(trofeus)
 let i = 1
 let estado
 for (const trofeu of trofeus) {
 
 if(trofeu.EventType__c=="trofeu" && trofeu.CloseDate__c < today || trofeu.EventStatus__c== "cancelado" ||  trofeu.EventStatus__c== "rejeitado" ){
-  //console.log(trofeus)
+  ////console.log(trofeus)
   strHtml += `
       <tr>
       
           <td class='w-30 text-center'>${trofeu.EventName__c}</td>`
 
-          console.log(trofeu.Track__c)
+          //console.log(trofeu.Track__c)
 
           const response2 = await fetch(`${domain}/admin/trackById/${trofeu.Track__c}`) 
           const pistas = await response2.json()
 
           if(pistas!="undefined"){
           let nomeP = pistas.track.TrackName__c
-          console.log(nomeP);
+          //console.log(nomeP);
           
             strHtml += `
                   <td class='w-20 text-center' >${nomeP} </td>`
@@ -76,17 +76,17 @@ if(trofeu.EventType__c=="trofeu" && trofeu.CloseDate__c < today || trofeu.EventS
 
           const response5 = await fetch(`${domain}/admin//registrationByEventID/${trofeu.Id}`) 
           const inscritos = await response5.json()
-          //console.log(inscritos.length)
+          ////console.log(inscritos.length)
 
            
           let n_inscritos= 0;
-            //console.log("entrou")
+            ////console.log("entrou")
           
             n_inscritos=inscritos.length
           
           estado =trofeu.EventStatus__c
           
-          console.log(estado)
+          //console.log(estado)
           
             strHtml += `<td class='w-10 text-center' width = 10%> ${n_inscritos} </td>`
 
@@ -139,22 +139,22 @@ btnMore[i].addEventListener("click", async(event) => {
 
 //get id trofeu selecionado
 let id_trofeu = btnMore[i].getAttribute("value");
-console.log("O evento selecionado é: " + id_trofeu)
+//console.log("O evento selecionado é: " + id_trofeu)
 const response6 = await fetch(`${domain}/admin/eventById/${id_trofeu}`) 
 const trofeu = await response6.json()
-console.log(trofeu)
+//console.log(trofeu)
 
 setCookie('id_trofeu', id_trofeu, 1);
-console.log(trofeu[0].EventName__c)
+//console.log(trofeu[0].EventName__c)
 if(trofeu[0].EventStatus__c == "insc_fechadas"){
 
-console.log("fechadas");
+//console.log("fechadas");
 window.location.href = "distribuiTrofeus.html"
 
 }
 else{
 window.location.href = "dadostrofeu.html"
-console.log("else");
+//console.log("else");
 }
 
 })
@@ -163,7 +163,7 @@ console.log("else");
 // Gerir o clique no ícone de Remover      
 const btnDelete = document.getElementsByClassName("apagar")
 for (let i = 0; i < btnDelete.length; i++) {
-console.log('entrou' + btnDelete[i].value)
+//console.log('entrou' + btnDelete[i].value)
 btnDelete[i].addEventListener("click", () => {
 swal.fire({
     title: 'Tem a certeza?',

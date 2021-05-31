@@ -5,7 +5,7 @@ async function login() {
     email: document.getElementById("email_input").value,
     password: document.getElementById("password_input").value
   };
-  console.log(data);
+  //console.log(data);
 
   const response = await fetch(`${domain}/user/login`, {
     headers: {
@@ -18,8 +18,8 @@ async function login() {
     credentials: 'include'
   }).then(res => res.json())
     .then(data => {
-      console.log(data);
-      console.log(data.message)
+      //console.log(data);
+      //console.log(data.message)
 
       if(data.message === "Login Successful"){
         window.location.href = "/public/utilizador/profile.html"
@@ -34,7 +34,7 @@ async function changePassword() {
   let data = {
     email: email
   };
-  console.log(data);
+  //console.log(data);
   
   const response = await fetch(`${domain}/user/requestPasswordChange`, {
     headers: {
@@ -47,7 +47,7 @@ async function changePassword() {
     credentials: 'include'
   }).then(res => res.json())
     .then(data => {
-      console.log(data);
+      //console.log(data);
       Swal.fire({
         title: "Alterar password",
         text: "Verifique o seu email",

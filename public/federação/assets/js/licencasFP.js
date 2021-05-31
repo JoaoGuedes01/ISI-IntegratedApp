@@ -58,7 +58,7 @@ const renderLicences = async () => {
      
                  //get id licença selecionado
                 let id_licence = btnMore[i].getAttribute("value");
-                console.log("O evento selecionado é: " + id_licence)
+                //console.log("O evento selecionado é: " + id_licence)
                 const response7 = await fetch(`${domain}/federation/licenses/${id_licence}`) 
                 const dados = await response7.json();
                 swal.fire({

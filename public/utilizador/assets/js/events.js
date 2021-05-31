@@ -24,15 +24,15 @@ const renderEventos = async () => { //falta confirmar a licença
   const response = await fetch(`${domain}/user/events`)
   const eventos = await response.json()
   let i = 1
-  console.log(eventos.userRegs.length);
-  console.log(eventos.notRegs.length);
+  //console.log(eventos.userRegs.length);
+  //console.log(eventos.notRegs.length);
 
 
   if (eventos.userRegs.length > 0) {
     for (i = 0; i < eventos.userRegs.length; i++) {
       const userRegEvent = await fetch(`${domain}/user/eventById/` + eventos.userRegs[i]);
       const userEv = await userRegEvent.json();
-      console.log(userEv);
+      //console.log(userEv);
       if (userEv[0].EventStatus__c == 'cancelado') {
         document.getElementById("cards_eventos").innerHTML +=
           `
@@ -80,12 +80,12 @@ const renderEventos = async () => { //falta confirmar a licença
   }
 
   if (eventos.notRegs.length > 0) {
-    console.log('entrou')
+    //console.log('entrou')
     for (i = 0; i < eventos.notRegs.length; i++) {
-      console.log('aquy')
+      //console.log('aquy')
       const userNotRegEvent = await fetch(`${domain}/user/eventById/` + eventos.notRegs[i]);
       const userEv = await userNotRegEvent.json();
-      console.log(userEv);
+      //console.log(userEv);
       if (userEv[0].EventStatus__c == 'espera_conf') {
         document.getElementById("cards_eventos").innerHTML +=
           `
@@ -164,8 +164,8 @@ const renderEventos = async () => { //falta confirmar a licença
   const btnMapa = document.getElementsByClassName("map")
 
   for (let i = 0; i < btnMapa.length; i++) {
-    console.log(i)
-    console.log("entrou")
+    //console.log(i)
+    //console.log("entrou")
     btnMapa[i].addEventListener("click", async (event) => {
 
 
@@ -178,7 +178,7 @@ const renderEventos = async () => { //falta confirmar a licença
       let longitude = pistas.track.MapsLong__c
       let name = pistas.track.TrackName__c
 
-      console.log(name + " " + latitude)
+      //console.log(name + " " + latitude)
 
       Swal.fire({
         title: name,
@@ -211,8 +211,8 @@ const renderEventos = async () => { //falta confirmar a licença
 
       //get id trofeu selecionado
       id_evento = btnParticipar[i].getAttribute("value");
-      console.log("O evento selecionado é: " + id_evento)
-      console.log("O piloto logado é: " + id_user_logged)
+      //console.log("O evento selecionado é: " + id_evento)
+      //console.log("O piloto logado é: " + id_user_logged)
 
       await Swal.fire({
 
@@ -327,7 +327,7 @@ const renderEventos = async () => { //falta confirmar a licença
             EventID__c: id_evento
           };
 
-          console.log(data)
+          //console.log(data)
 
           // Registar no evento
           let response
@@ -343,7 +343,7 @@ const renderEventos = async () => { //falta confirmar a licença
           }).then(res => res.json())
             .then(data => {
 
-              console.log(data);
+              //console.log(data);
               if (data.status == 500) {
                 Swal.fire({
                   title: "Erro",
@@ -351,7 +351,7 @@ const renderEventos = async () => { //falta confirmar a licença
                 })
               }
               else {
-                console.log(data)
+                //console.log(data)
                 window.open(data.forwardLink)
               }
               //window.location.href="/public/utilizador/events.html"
@@ -372,7 +372,7 @@ const renderEventos = async () => { //falta confirmar a licença
 //get user logado
 const LoggedUser = async () => {
 
-  //console.log("ola")
+  ////console.log("ola")
 
   const resposne = await fetch(`${domain}/user/loggedUser`, {
     headers: {
@@ -394,7 +394,7 @@ const LoggedUser = async () => {
 
 async function getMesas() {
   let Mesas = document.getElementById("mesa")
-  //console.log("entrei no select mesas")
+  ////console.log("entrei no select mesas")
 
   const response = await fetch(`${domain}/user/eventById/${id_evento}`)
   const evento = await response.json()
@@ -404,12 +404,12 @@ async function getMesas() {
   const response5 = await fetch(`${domain}/admin/trackById/${evento[0].Track__c}`)
   const tracks = await response5.json()
 
-  //console.log(tracks.tables.tables)
+  ////console.log(tracks.tables.tables)
 
   let strHtml
 
   for (let m = 0; m < tracks.tables.tables.length; m++) {
-    console.log(tracks.tables.tables[m].tableNumber)
+    //console.log(tracks.tables.tables[m].tableNumber)
     strHtml += `
    <option value='${tracks.tables.tables[m].tableNumber}'> ${tracks.tables.tables[m].tableNumber}</option>
    `

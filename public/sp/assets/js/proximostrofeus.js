@@ -21,12 +21,12 @@ let formAddTrofeu = document.getElementById("formAddTrofeu")
 
           let idpista = document.getElementById("Pistas")    //falta converter id
        
-          console.log("pista " + idpista.options[idpista.selectedIndex].value)
+          //console.log("pista " + idpista.options[idpista.selectedIndex].value)
 
           id_pista_id = idpista.options[idpista.selectedIndex].value
            
           let Webcelos = document.getElementsByName("idWebcelos")
-          console.log(Webcelos)
+          //console.log(Webcelos)
 
           //dados webcelos
           let campanha =""
@@ -35,7 +35,7 @@ let formAddTrofeu = document.getElementById("formAddTrofeu")
           for (var i = 0; i < Webcelos.length; i++) {         
             if (Webcelos[i].checked == true) {
                 id_webcelos_id= Webcelos[i].value
-                console.log("valor serviço "+ id_webcelos_id)
+                //console.log("valor serviço "+ id_webcelos_id)
 
                 if(id_webcelos_id==1){
                     campanha = "cmd" //promocao (digital)
@@ -71,7 +71,7 @@ let data = {
          
 // post criar trofeu
             let response
-              console.log('antesdofetchdeAdd')
+              //console.log('antesdofetchdeAdd')
   
               response = await fetch(`${domain}/admin/events`, {
                   headers: {
@@ -82,7 +82,7 @@ let data = {
                 }) 
 
           let response2
-          console.log('antesdofetchdeAdd')
+          //console.log('antesdofetchdeAdd')
           window.location.href="/public/sp/proximostrofeus.html"  
       }) 
    
@@ -119,14 +119,14 @@ let data = {
   
         const response = await fetch(`${domain}/admin/events`) 
         const trofeus = await response.json()
-        //console.log(trofeus)
+        ////console.log(trofeus)
         let i = 1
         let estado
         for (const trofeu of trofeus) {
         
           
           if(trofeu.EventType__c=="trofeu" && (trofeu.EventStatus__c == "espera_conf" ||  trofeu.EventStatus__c == "insc_fechadas"||  trofeu.EventStatus__c == "insc_abertas" || trofeu.EventStatus__c == "rejeitado") && trofeu.StartDate__c > today){
-            //console.log(trofeus)
+            ////console.log(trofeus)
             strHtml += `
                 <tr>
                 

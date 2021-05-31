@@ -26,9 +26,9 @@ formAddPista.addEventListener("submit", async (event) => {
     const mesas = document.getElementById("mesas").value
     const capacidade = document.getElementById("capacidade").value
    // const latitude = document.getElementById("map").value
-    console.log("latitude da pista"+lat);
-    console.log("longitude da pista"+long);
-    //console.log('depoisss' + map.position);
+    //console.log("latitude da pista"+lat);
+    //console.log("longitude da pista"+long);
+    ////console.log('depoisss' + map.position);
     let arraymesas = []
 
 
@@ -51,10 +51,10 @@ formAddPista.addEventListener("submit", async (event) => {
         MapsLong__c: long,
         tables: arraymesas
     }
-    console.log(data);
+    //console.log(data);
 
     let response
-    console.log('antesdofetchdeAdd')
+    //console.log('antesdofetchdeAdd')
 
     // Adiciona Pista
     response = await fetch(`${domain}/admin/tracks`, {
@@ -88,7 +88,7 @@ const renderPistas = async () => {
     const pistas = await response.json()
     let i = 1
     for (const pista of pistas) {
-        console.log(pistas)
+        //console.log(pistas)
         strHtml += `
                   <tr>
                   
@@ -110,7 +110,7 @@ const renderPistas = async () => {
     // Gerir o clique no ícone de Rejeitar      
     const btnDelete = document.getElementsByClassName("apagar")
     for (let i = 0; i < btnDelete.length; i++) {
-        console.log('entrou' + btnDelete[i].value)
+        //console.log('entrou' + btnDelete[i].value)
         btnDelete[i].addEventListener("click", () => {
             swal.fire({
                 title: 'Tem a certeza?',
@@ -175,15 +175,15 @@ function initMap() {
       var position = JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2);
       lat = position.substring(position.indexOf(':')+2, position.indexOf(','));
       long = position.substring(position.indexOf('g')+4, position.indexOf('}')-1);
-        console.log(lat);
-        console.log(long);
-        console.log(position); //lat: xxx e lng: xxx
+        //console.log(lat);
+        //console.log(long);
+        //console.log(position); //lat: xxx e lng: xxx
 
     });
         
 
   }
  
-console.log(position);
+//console.log(position);
 
 

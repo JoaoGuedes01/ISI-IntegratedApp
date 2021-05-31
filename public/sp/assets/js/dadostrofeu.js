@@ -70,7 +70,7 @@ function getCookie(cname) {
         let mec_tel
         let mesa
         for (const inscrito of inscritos) {
-            console.log(inscritos)
+            ////console.log(inscritos)
             strHtml += `
                 <tr>
                 
@@ -84,7 +84,7 @@ function getCookie(cname) {
                     </td>
                 </tr>
             `
-          console.log(inscrito.Name)
+          ////console.log(inscrito.Name)
             i++
         }
         strHtml += "</tbody>"
@@ -98,7 +98,7 @@ function getCookie(cname) {
            
              //get id trofeu selecionado
             let selecionado = btnMore[i].getAttribute("value");
-            console.log("O evento selecionado é: " + id_trofeu)
+            ////console.log("O evento selecionado é: " + id_trofeu)
             for(const inscrito of inscritos){
               if(selecionado == inscrito.Name){
          

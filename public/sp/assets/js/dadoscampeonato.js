@@ -46,11 +46,11 @@ let strHtml = `
       const response2 = await fetch(`${domain}/admin//registrationByEventID/${id}`) 
       const inscritos = await response2.json()
 
-      console.log(inscritos)
+      //console.log(inscritos)
       let i = 1
 
       for (const inscrito of inscritos) {
-        console.log(inscritos)
+        //console.log(inscritos)
         strHtml += `
             <tr>
                 <td class='w-10 text-center'>${inscrito.Pilot_Name__c}</td>
@@ -77,14 +77,14 @@ let strHtml = `
 
         //botão ver mais 
         const btnMore = document.getElementsByClassName("more")
-        console.log("o mecanico é: " + mec_name)
+        //console.log("o mecanico é: " + mec_name)
         for (let i = 0; i < btnMore.length; i++) {
          btnMore[i].addEventListener("click", () => {
            
  
              //get id trofeu selecionado
             let id_trofeu = btnMore[i].getAttribute("value");
-            console.log("O evento selecionado é: " + id_trofeu)
+            //console.log("O evento selecionado é: " + id_trofeu)
 
             swal.fire({
               title: 'Dados do mecânico',

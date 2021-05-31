@@ -19,9 +19,9 @@ const renderEventos = async () => {    //colocar resultados
     let i = 1
     let nome_evento
     for (const evento of eventos) {
-        console.log(eventos)
+        //console.log(eventos)
         nome_evento = evento.EventName__c;
-        console.log(nome_evento)
+        //console.log(nome_evento)
         i++
   
     //verificar data
@@ -33,8 +33,8 @@ const renderEventos = async () => {    //colocar resultados
   
     today = yyyy + '-' + mm + '-' + dd;
   
-    console.log(today)
-    console.log(evento.StartDate__c)
+    //console.log(today)
+    //console.log(evento.StartDate__c)
   
     if(evento.StartDate__c < today){   //só aparecem eventos depois de hoje
   
@@ -43,13 +43,13 @@ const renderEventos = async () => {    //colocar resultados
         const inscritos = await response.json()
   
         for (const inscrito of inscritos) {
-         // console.log("entrou")
-          console.log("id do inscrito" + inscrito.PilotID__c)
+         // //console.log("entrou")
+          //console.log("id do inscrito" + inscrito.PilotID__c)
   
-          console.log(id_user_logged)
+          //console.log(id_user_logged)
   
           if(inscrito.PilotID__c == id_user_logged){  //Se estiver inscrito o botão diz inscrito e já não se pode inscrever novamente
-            console.log("Já está inscrito")
+            //console.log("Já está inscrito")
   
             const response2 = await fetch(`${domain}/admin/trackById/${evento.Track__c}`) 
             const pistas = await response2.json()
@@ -94,7 +94,7 @@ const renderEventos = async () => {    //colocar resultados
 //get user logado
 const LoggedUser = async () =>{
 
-    //console.log("ola")
+    ////console.log("ola")
   
     const resposne = await fetch(`${domain}/user/loggedUser`, {
         headers: {
@@ -105,9 +105,9 @@ const LoggedUser = async () =>{
         credentials: 'include'
     }).then(res => res.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
                 id_user_logged =data.Id;
   
-                console.log(id_user_logged)
+                //console.log(id_user_logged)
             });
   }
